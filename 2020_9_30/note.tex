@@ -1,0 +1,100 @@
+\synctex=1
+\documentclass[dvipdfmx,10pt, a4j]{jarticle}
+%----------------------------------------------------------
+%パッケージ読み込み
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm} %定理環境の拡張
+\usepackage{ascmac}
+\usepackage{bm}
+\usepackage{cases}
+\usepackage{comment} %非表示にするためのコメント
+\usepackage{enumerate}
+\usepackage{float} %画像をその場に表示．[h]の代わりに[H]
+\usepackage{graphicx} % eps 形式の図版取り込みのため
+\usepackage{mathrsfs}
+\usepackage{url}
+\usepackage[dvipdfmx]{hyperref}
+%----------------------------------------------------------
+
+%----------------------------------------------------------
+%命題関係の定義
+\theoremstyle{definition}
+\newtheorem{definition}{定義}[section]
+\newtheorem{theorem}{定理}[section]
+\newtheorem{proposition}[theorem]{命題}
+\newtheorem{lemma}[theorem]{補題}
+\newtheorem{col}[theorem]{系}
+\newtheorem{example}{例}[section]
+\newtheorem{remark}{注意}[section]
+%----------------------------------------------------------
+
+%タイトル・著者===================================================
+\title{第1回 数理統計 レポート}
+\author{小森 一輝}
+%=================================================================
+
+%本文開始=========================================================
+\begin{document}
+
+    \maketitle
+
+%カウンタ--------------------------------------------------
+\setcounter{section}{2}
+%\setcounter{subsection}{0}
+%\setcounter{subsubsection}{0}
+%\setcounter{theorem}{0}
+%----------------------------------------------------------定義2.1
+    \begin{definition} 加法族\\
+    空でない集合$\Omega$の部分集合の族、$\mathcal{A}$が以下の条件を満たすとき、\textbf{加法族}と呼ぶ。
+    \begin{enumerate}
+        \renewcommand{\labelenumi}{\roman{enumi})}
+        \item $\Omega \in \mathcal{A}$
+        \item $A \in \mathcal{A}$ ならば $A^{c} \in \mathcal{A}$
+        \item $A \in \mathcal{A} ,B \in \mathcal{A} $ ならば $A \cup B \in \mathcal{A}$
+    \end{enumerate}
+    %---------------以下補足
+    \subparagraph*{補足}
+    補足項目の追記\\
+    要素 ($\bm{a}$)と集合 ($\bm{A}$)、$\mathcal{A}$ は以下の関係で表すことができる。\\
+    a $\in$ A $\in \mathcal{A}$\\
+    \begin{itembox}[l]{未定義用語}
+        集合 $\bm{A}$\\
+        要素 $\bm{a}$\\
+        含まれる $\bm{\in}$
+    \end{itembox}
+    \end{definition}
+% ------------------------------------------------------------定義2.2
+    \begin{definition} 完全加法族\\
+    空でない集合$\Omega$の部分集合の族、$\mathcal{A}$が以下の条件を満たすとき、\textbf{完全加法族}と呼ぶ。
+    \begin{enumerate}
+        \renewcommand{\labelenumi}{\roman{enumi})}
+        \item $\Omega \in \mathcal{A}$
+        \item $\bm{A} \in \mathcal{A}$ ならば $\bm{A^{c}} \in \mathcal{A}$
+        \item $\bm{A_i} \in \mathcal{A}(i = 1, 2, \dots)$ ならば $\displaystyle\bigcap_{i=1}^{\infty}{A_i} \in \mathcal{A}$
+    \end{enumerate}
+    %---------------以下補足
+    \subparagraph*{補足}
+    補足項目の追記\\
+    \begin{itembox}[l]{集合の可算性}
+        $P(A \cup B) = A \cap B^{c}$ + $A \cap B$ + $A^{c} \cap B$
+    \end{itembox}
+    \end{definition}
+    \clearpage
+% ------------------------------------------------------------定義2.3
+    \begin{definition} 事象, 根元事象\\
+    完全加法族$\mathcal{A}$の要素は、\textbf{事象}と呼ぶ。つまり、集合$\Omega$ の部分集合が事象である。\\
+    また、ただ一つの要素 $\omega$ を持つ集合 $\{ \omega \}$ が事象ならば、$\{ \omega \}$は\textbf{根元事象}と呼ばれる。
+    \begin{proposition} 全事象, 空事象\\
+        集合 $\Omega$, $\phi$はそれ自身が事象であり、それぞれ\textbf{全事象}, \textbf{空事象} と呼ばれる。
+    \end{proposition}
+    %---------------以下証明
+    \begin{proof}
+        定義2.2(i)より、\\
+        $\Omega \in \mathcal{A}$\\
+        上式と定義2.2(ii)より、\\
+        $\Omega \in \mathcal{A} \Rightarrow \Omega^{c} = \phi \in \mathcal{A}$\\
+    \end{proof}
+    \end{definition}
+\end{document}
+%本文ここまで=========================================================

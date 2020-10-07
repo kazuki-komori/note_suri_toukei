@@ -1,0 +1,98 @@
+\synctex=1
+\documentclass[dvipdfmx,10pt, a4j]{jarticle}
+%----------------------------------------------------------
+%パッケージ読み込み
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm} %定理環境の拡張
+\usepackage{ascmac}
+\usepackage{bm}
+\usepackage{cases}
+\usepackage{comment} %非表示にするためのコメント
+\usepackage{enumerate}
+\usepackage{float} %画像をその場に表示．[h]の代わりに[H]
+\usepackage{graphicx} % eps 形式の図版取り込みのため
+\usepackage{mathrsfs}
+\usepackage{url}
+\usepackage[dvipdfmx]{hyperref}
+%----------------------------------------------------------
+
+%----------------------------------------------------------
+%命題関係の定義
+\theoremstyle{definition}
+\newtheorem{definition}{定義}[section]
+\newtheorem{theorem}{定理}[section]
+\newtheorem{proposition}[theorem]{命題}
+\newtheorem{lemma}[theorem]{補題}
+\newtheorem{col}[theorem]{系}
+\newtheorem{example}{例}[section]
+\newtheorem{remark}{注意}[section]
+%----------------------------------------------------------
+
+%タイトル・著者===================================================
+\title{第2回 数理統計 レポート}
+\author{小森 一輝}
+%=================================================================
+
+%本文開始=========================================================
+\begin{document}
+
+    \maketitle
+
+%カウンタ--------------------------------------------------
+\setcounter{section}{2}
+%\setcounter{subsection}{0}
+%\setcounter{subsubsection}{0}
+%\setcounter{theorem}{0}
+%----------------------------------------------------------命題2.2
+    \noindent
+    \textbf{命題 2.2.} 和事象, 積事象, 余事象\\
+    集合 A が事象であれば, その集合 $A^(c)$ も事象となり、\textbf{余事象}と呼ばれる。\\
+    また、以下に集合 A, Bそれぞれについての和集合 $A \cup B$, 積集合 $A \cap B$それぞれについて示す。
+    %---------------以下証明
+    \begin{proof} $A, B \in \mathcal{A}$のとき\\
+        \begin{enumerate}
+            \renewcommand{\labelenumi}{\roman{enumi})}
+            \item \textbf{余事象 $A^{c}$} \\
+                $A \in \mathcal{A}$ より、 $A^{c} \in \mathcal{A}$ $(\because 定義2.1(ii))$
+            \item \textbf{和事象 $A \cup B$} \\
+                $A, B \in \mathcal{A}$ より、 $A \cup B \in \mathcal{A}$ $(\because 定義2.1(iii))$
+            \item \textbf{積事象 $A \cap B$} \\
+                $A, B \in \mathcal{A}$ より、 $A^{c}, B^{c} \in \mathcal{A}$ $(\because 定義2.1(ii))$\\
+                $A^{c}, B^{c} \in \mathcal{A}$ より、 $A^{c} \cup B^{c} \in \mathcal{A}$ $(\because 定義2.1(iii))$\\
+                $A^{c} \cup B^{c} \in \mathcal{A}$より、\\
+                ド・モルガンの法則を用いると、\\
+                $(A^{c}, B^{c})^{c} = A \cup B \in \mathcal{A}$ $(\because 定義2.1(ii))$
+        \end{enumerate}
+    \end{proof}
+    %---------------以下補足
+    \subparagraph*{補足}
+    補足項目の追記\\
+    $A \cap B = \phi のとき、A と B は排反である。$\\
+
+% ------------------------------------------------------------定義2.4
+    \noindent
+    \textbf{定義 2.4.} 排反事象\\
+    事象A, B に対して、 $A \cup B = \phi$ が成り立つとき、事象A と 事象B は互いに排反であるという。\\
+
+% ------------------------------------------------------------定義2.5
+    \noindent
+    \textbf{定義 2.5.} 可測空間\\
+    空でない集合 $\Omega$ とその完全加法族 $\mathcal{A}$ の組$(\Omega, \mathcal{A})$を \textbf{可測空間} と呼ぶ。\\
+
+% ------------------------------------------------------------定義2.9
+    \noindent
+    \textbf{定義 2.9.} コルモロゴフの確率の公理\\
+    $(\Omega, \mathcal{A})$を可測空間とし、P を $\mathcal{A}$ を定義域とする、実数値関数とする。
+    \begin{enumerate}
+        \renewcommand{\labelenumi}{\roman{enumi})}
+        \item 任意の $A \in \mathcal{A}$ に対して、 $0 \geqq P(A) \geqq 1$\\
+        このとき、0は空事象、1は全事象を表す。\\
+        \item $P(\Omega) = 1$
+        \item $\bm{A_i} \in \mathcal{A}(i = 1, 2, \dots), {A_i} \cap {A_j} = \phi (i \neq j)$ ならば, \\
+        $P\left(\displaystyle\bigcup_{i=1}^{\infty}{A_i}\right) = \Sigma_{i=1}^{\infty}P(A_i)$
+    \end{enumerate}
+
+% ------------------------------------------------------------定義2.2
+\end{document}
+%本文ここまで=========================================================

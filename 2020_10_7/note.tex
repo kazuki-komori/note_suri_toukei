@@ -92,7 +92,141 @@
         \item $\bm{A_i} \in \mathcal{A}(i = 1, 2, \dots), {A_i} \cap {A_j} = \phi (i \neq j)$ ならば, \\
         $P\left(\displaystyle\bigcup_{i=1}^{\infty}{A_i}\right) = \Sigma_{i=1}^{\infty}P(A_i)$
     \end{enumerate}
+    以上の3つの条件を満たすとき、Pを確立空間上の \textbf{確率測度} とよぶ。\\
+    また、事象 A に対する確率測度 P の値、P(A) を事象 A の \textbf{確率} とよぶ。\\
 
-% ------------------------------------------------------------定義2.2
+% ------------------------------------------------------------定義2.10
+    \noindent
+    \textbf{定義 2.10.} 確率空間\\
+    $(\Omega, \mathcal{A}, P)$\\
+    上記のように、標本空間 $\bm{\Omega}$, 完全加法族 $\bm{\mathcal{A}}$, 加速度 $\bm{P}$ の組を \textbf{確率空間} という。\\
+
+% ------------------------------------------------------------例2.1
+    \noindent
+    \textbf{例 2.1.} 古典的確率（ラプラス流）\\
+    標本空間を $\Omega$ = \{${\omega_i} \mid i = 1,2,\dots n$\} とする。実数値関数 P を P({$\omega_i$}) = $1/n(i = 1,2,\dots n)$ を満たし、
+    かつ、事象 $A(\subset \Omega)$ に対して\\
+
+    $P(A) = \frac{n(A)}{n(\Omega)} = \frac{n(A)}{n}$\\
+
+    を満たすと定義する。このとき、関数 P は確率となる。\\
+
+    $P({\omega_i}) = \frac{1}{n}(i = 1,2,\dots n)$
+
+    上式は「同様に確からしい」状況を表す。\\
+
+    $A \in \mathcal{A} (A \subset \Omega)$\\
+
+    $P(A) = \frac{n(A)}{n(\Omega)}$ (※$ n(A) は A に含まれる個数$)\\
+
+    このように定義すると P は確率測度を表す。\\
+
+%　---------------以下証明
+    \begin{proof} 定義2.9（コルモロゴフの確率の公理の証明）\\
+    \begin{enumerate}
+        \renewcommand{\labelenumi}{\roman{enumi})}
+        \item
+        $0 \leq \frac{n(A)}{n} \leq \frac{n(\Omega)}{n} = P(\Omega)$
+        \item
+        $0 \leq P(A) \leq 1   (\because 定義 i より)$
+        \item
+        ${A_i} \cap {A_j} = P(i \neq j)$\\
+        $P\left(\bigcup_{i=1}^{n}{A_i}\right) = \frac{n(\cup {A_i})}{n(\Omega)} = \frac{\sum_{i=1}^n}{n} n({A_i}) = \sum_{i=1}^n \frac{n(A_i)}{n} = \sum_{i=1}^n P(A_i)$
+    \end{enumerate}
+    \end{proof}
+    \begin{itembox}[l]{補足}
+        ラプラス流の確率はコルモロゴフの確率の公理を満たす。
+    \end{itembox}
+    \begin{itembox}[l]{矛盾点\ldots}
+        適用範囲nは有限個のみ、 $\infty$ の場合 0 に収束\\
+        「同様に確からしい」は等確率？等確率は現実で起こり得ることはないため現実では適用不可
+    \end{itembox}\\
+
+% ------------------------------------------------------------定理2.5
+    \noindent
+    \textbf{定理 2.5.} 確率空間\\
+    $(\Omega, \mathcal{A}, P)$\\
+    \begin{proof} 証明\\
+    \begin{enumerate}
+        \renewcommand{\labelenumi}{\roman{enumi})}
+% -----------------------------------(i)
+        \item
+        $P(\Omega) = 0$\\
+        \begin{align*}
+            \phi = \phi \cup \phi, \phi \cap \phi = \phi より
+            P(\phi) = P(\phi \cup \phi) = P(\phi) + P(\phi)\\
+            よって、 P(\phi) = 0 \quad (\because P(\phi) \geq 0)
+        \end{align*}
+% -----------------------------------(ii)
+        \item
+        $A, B \in \mathcal{A}, A \subset B ならば P(A) \leq P(B))$
+        \begin{align*}
+            (A, B \mathcal{A}, A \subset B)\\
+            B = B \cap \Omega &= B \cap (A \cup A^{c})\\
+            &= (B \cap A) \cup (B \cap A^{c}) \\
+            &= A \cup (B \cap A^{c}) \\
+        \end{align*}
+        したがって、 $P(B) = PA \cup (B \cap A^{c}) = P(A) + P(A) + P(B \cap A^{c}) \geq P(A)$
+% -----------------------------------(iii)
+        \item
+        $A \in \mathcal{A} ならば, P(A)+ P(A^{c}) = 1$
+        \begin{center}
+            $A \cap A^{c} = \phi$\\
+            $A \cup A^{c} = \Omega$\\
+            $1 = P(\Omega) = P(A \cup A^{c}) = P(A) + P(A^{c}) \quad (\because AとA^{c} は排反)$
+        \end{center}
+% -----------------------------------(iv)
+        \item
+        $A, B \in \mathcal{A} ならば, P(A \cup B) = P(A) + P(B) - P(A \cap B)$
+        \begin{align}
+            P(A \cup B) = P(A \cap B^{c}) + P(A \cap B) + P(A^{c} \cap B)\\
+            P(A) = P(A \cap B^{c}) + P(A \cap B)\\
+            P(B) = P(A^{c} \cap B) + P(A \cap B)
+        \end{align}
+        \begin{align*}
+            (2)より、 P(A \cap B^{c}) = P(A) - P(A \cap B)\\
+            (3)より、 P(A^{c} \cap B) = P(B) - P(A \cap B)\\
+            これらを (1) に代入すると示せた。
+        \end{align*}
+    \end{enumerate}
+    \end{proof}
+    \newpage
+% ------------------------------------------------------------例2.2
+    \noindent
+    \textbf{例 2.2.} 確率空間の例\\
+    表が出る確率が P のコインを投げる。H を表、Tを裏とすると各要素を以下のように表すことができる。\\
+    $標本空間 \Omega = \{ H, T \}$\\
+    $完全加法族 \mathcal{A} = \{ \Omega, \phi, \{H\}, \{T\} \}$\\
+
+    確率はそれぞれ、
+    $P(\Omega) = 1$\\
+    $P(\phi) = 0$\\
+    $P(\{H\}) = p$\\
+    $P(\{H\}^{c}) = 1-p$\\
+
+% ------------------------------------------------------------例2.4
+    \noindent
+    \textbf{例 2.4.} スターリングの公式\\
+    以下の式が成り立つ。\\
+    \[
+        \lim_{x \to \infty} \frac{n!}{\sqrt{2 \pi n}\left(\frac{n}{e}\right)^{n}} = 1\\
+    \]
+    つまり、十分大きな $n \in \mathcal{N} について, n!$を以下のように表すことができる。
+    \begin{align}
+        n! \approx \sqrt{2 \pi n}\left(\frac{n}{e}\right)^{n}
+    \end{align}
+
+% ------------------------------------------------------------定理2.6
+    \noindent
+    \textbf{定理 2.6.} 一般加法定理\\
+    和の確率は, 以下のように積の確率で表現することができる。\\
+    $A_i \in \mathcal{A} ならば、$\\
+    \begin{align*}
+        P(\bigcup_{i=1}^{n}{A_i}) = \sum_{i = 1}^n P(A_i) - \sum_{1 < i_1 < i_2 < n} P(A_{i1} \cap A_{i2}) + \sum_{1 < i_1 < i_2 < i_3 < n} P(A_{i1} \cap A_{i2} \cap A_{i3}) \\
+        + \dots + (-1)^{l-1} \sum_{1 < i_1 < i_2 \dots < i_l < n} P(A_{i1} \cap A_{i2} \cap \dots \cap A_{il})\\
+        + \dots + (-1)^{n-1}P(\bigcup_{i=1}^{n}{A_i})\\
+    \end{align*}
+    が成り立つ。これを, \textbf{一般加法定理}という。
+
 \end{document}
 %本文ここまで=========================================================

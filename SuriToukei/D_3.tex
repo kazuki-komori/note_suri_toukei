@@ -1,0 +1,321 @@
+\synctex=1
+\documentclass[dvipdfmx,10pt, a4j]{jarticle}
+%----------------------------------------------------------
+%パッケージ読み込み
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm} %定理環境の拡張
+\usepackage{ascmac}
+\usepackage{bm}
+\usepackage{cases}
+\usepackage{comment} %非表示にするためのコメント
+\usepackage{enumerate}
+\usepackage{float} %画像をその場に表示．[h]の代わりに[H]
+\usepackage{graphicx} % eps 形式の図版取り込みのため
+\usepackage{mathrsfs}
+\usepackage{url}
+\usepackage[dvipdfmx]{hyperref}
+%----------------------------------------------------------
+
+%----------------------------------------------------------
+%命題関係の定義
+\theoremstyle{definition}
+\newtheorem{definition}{定義}[section]
+\newtheorem{theorem}{定理}[section]
+\newtheorem{proposition}[theorem]{命題}
+\newtheorem{lemma}[theorem]{補題}
+\newtheorem{col}[theorem]{系}
+\newtheorem{example}{例}[section]
+\newtheorem{remark}{注意}[section]
+%----------------------------------------------------------
+
+%タイトル・著者===================================================
+\title{第3回 数理統計 レポート}
+\author{小森 一輝}
+%=================================================================
+
+%本文開始=========================================================
+\begin{document}
+
+    \maketitle
+
+%カウンタ--------------------------------------------------
+    \setcounter{section}{2}
+%\setcounter{subsection}{0}
+%\setcounter{subsubsection}{0}
+%\setcounter{theorem}{0}
+%----------------------------------------------------------定理2.8
+    \noindent
+    \textbf{定理 2.8.} 完全劣加法性\\
+    $A_i \in \mathcal{A}\, (i = 1, 2, \dots)$ ならば, 以下が成り立つ。\\
+    \begin{align*}
+        P(\bigcup_{i=1}^{\infty}{A_i}) \, \leq \, \sum_{i=1}^{\infty}P(A_i)
+    \end{align*}
+    この性質を \textbf{完全劣加法性} という。\\
+
+%----------------------------------------------------------系2.9.
+    \noindent
+    \textbf{系 2.9.} 有限劣加法性\\
+    $A_i \in \mathcal{A}\, (i = 1, 2, \dots, n)$ ならば, 以下が成り立つ。\\
+    \begin{align*}
+        P(\bigcup_{i=1}^{n}{A_i}) \, \leq \, \sum_{i=1}^{n}P(A_i)
+    \end{align*}
+    この不等式は \textbf{ブールの不等式} とよばれ、この性質を \textbf{有限劣加法性} という。\\
+
+    %---------------以下補足
+    \begin{itembox}[l]{補足}
+        \begin{flushleft}
+            $B_1 = A_1$\\
+            $B_2 = A_2 \cap {A_1}^{c}$\\
+            $A_1 \cup A_2 = B_1 \cup B_2$\\
+            $B_i \subset A_i$
+        \end{flushleft}
+    \end{itembox}
+
+    %　---------------以下証明
+    \newpage
+    \begin{proof}
+        $A_i$ を互いに排反な事象 $B_i$ で表す。\\
+        \begin{align*}
+            & \begin{cases}
+                  B_1 = A_1\\
+                  B_i = A_i \, \cap \, (\, \bigcup_{k=1}^{i-1}{A_k} \, )^{c} \qquad  (i \geqq 2)
+            \end{cases}
+            とおく。\\
+            & \begin{cases}
+                  \bigcup_{i=1}^{\infty}{A_i} = \bigcup_{i=1}^{\infty}{B_i} ・・・※\\
+                  B_1 \subset A_i (i = 1, 2, \dots)
+            \end{cases}
+            が成り立つ。\\
+            ※\,より、\\
+            P(\bigcup_{i=1}^{\infty}{A_i}) &= P(\bigcup_{i=1}^{\infty}{B_i})\\
+            &= \sum_{i=1}^{\infty}{P(B_i)} \qquad (\because{B_i\, が互いに排反})\\
+            したがって、B_i \in A_i であるから,\\
+            \sum_{i=1}^{\infty}{P(B_i)} \leq \sum_{i=1}^{\infty}{P(A_i)}
+        \end{align*}
+    \end{proof}
+
+%----------------------------------------------------------定理2.10
+    \noindent
+    \textbf{定理 2.10.} ボンフェローニの不等式\\
+    $A_i \in \mathcal{A}\, (i = 1, 2, \dots, n)$ ならば, 以下が成り立つ。\\
+    \begin{align*}
+        P(\bigcap_{i=1}^{n}{A_i}) \, \leq \, 1 - \sum_{i=1}^{n}P({A_i}^c)
+    \end{align*}
+    この不等式を \textbf{ボンフェローニの不等式} という。\\
+    %　---------------以下証明
+    \begin{proof}
+        \begin{align*}
+            P(\bigcap_{i=1}^{n}{A_i}) &= P((\bigcup_{i=1}^{n}{{A_i}^c})^{c})\\
+            &= 1 - P(\bigcup_{i=1}^{n}{{A_i}^c})\\
+            &\geq 1 - \sum_{i=1}^{n}P(A_i) \qquad (\because{ブールの不等式})
+        \end{align*}
+    \end{proof}
+
+%----------------------------------------------------------定理2.11
+    \noindent
+    \textbf{定理 2.11.} 条件付き確率\\
+    確率空間 $(\Omega, \mathcal{A}, P)$ において,\,
+    事象B $ \in \mathcal{A}$ (ただし, $P(B) > 0$) が与えられているとき, \, 以下で定義される実数関数$P(\, ・ \mid B)$ は確率測度となる。
+    \begin{align*}
+        P(A \mid B) = \frac{P(A \cap B)}{P(B)} \qquad (A \in \mathcal{A})
+    \end{align*}
+    このとき$P(A \mid B)$ を事象Bが起こったという条件のもとでの事象Aの条件付き確率とよぶ。\\
+    \begin{enumerate}
+        \item $0 \leq P(A \mid B) \leq 1$
+        \item $P(\Omega \mid B) = 1$
+        \item $A_i (i = 1, 2, \dots) \in \mathcal{A}$ を互いに排反とすると、\\
+        $P\, \left(\bigcup_{i=1}^{\infty}{A_i \mid B}\right) = \sum_{i=1}^{\infty}{P\, (A_i \mid B)}$
+    \end{enumerate}
+    %---------------以下補足
+    \begin{itembox}[l]{注}
+        \begin{flushleft}
+            $P\, (・ \mid B)$\, と\, P(・) の2つは異なる関数
+        \end{flushleft}
+    \end{itembox}\\
+
+%----------------------------------------------------------定理2.15
+    \noindent
+    \textbf{定理 2.15.} A, B $\in \mathcal{A}, P(A), P(B) > 0$ について, \, 以下が成り立つ。\\
+    \begin{enumerate}[i)]
+        \item $P(A \cap B) = P(A)P(B \mid A) = P(B)P(A \mid B) \qquad (乗法定理)$\\
+        %　---------------以下証明
+        \begin{proof}
+            \begin{align*}
+                P(A)P(B \mid A) = P(A)\frac{P(A)}{P(B \cap A)} = P(A \cap B)\\
+                P(B)P(A \mid B) = P(B)\frac{P(B)}{P(A \cap B)} = P(A \cap B)
+            \end{align*}
+        \end{proof}
+        \item $P(A \mid B) = P(A) ならば, P(B \mid A) = P(B)$
+        %　---------------以下証明
+        \begin{proof}
+            \begin{align*}
+                P(B \mid A) = \frac{P(B \cap A)}{P(A)} = \frac{P(B \cap A)}{P(A \mid B)} = P(B)
+            \end{align*}
+        \end{proof}
+        \item $P(A \cap B) \leq P(B \mid A), P(B \cap A) \leq P(A \mid B)$
+        %　---------------以下証明
+        \begin{proof}
+            \begin{align*}
+                &P(B \mid A) - P(A \mid B)\\
+                &= \frac{P(B \cap A)}{P(A)} - P(A \cap B)\\
+                &= (A \cap B)(\frac{1}{P(A)} - 1)\\
+                &= (A \cap B)(\frac{1 - P(A)}{P(A)}) \geq 0 \qquad (\because{P(A) \leq 1})
+            \end{align*}
+        \end{proof}
+    \end{enumerate}
+
+%----------------------------------------------------------定理2.16
+    \noindent
+    \textbf{定理 2.16.} $A, A_i \in \mathcal{A}\, (i = 1, 2, \dots, n), P(A) > 0 について, \bigcup_{i=1}^{n}{A_i} = \Omega, A_i \cap A_j = \phi\, (i \neq j)ならば, 以下が成り立つ。$\\
+    \begin{align*}
+        \sum_{i=1}^{n}{P(A_i \mid A)} = 1
+    \end{align*}
+    %　---------------以下証明
+    \begin{proof}
+        \begin{align*}
+            \sum P(A_i \mid A) &= \sum \frac{P(A_i \cap A)}{P(A)}\\
+            &= \frac{1}{P(A)} \sum P(A_i \cap A)\\
+            ここで、A_i \cap A = B_i とする。\\
+            &= \frac{1}{P(A)} P(\bigcup_{i=1}^{n}{B_i})\\
+            &= \frac{1}{P(A)} P(\bigcup_{i=1}^{n}{(A_i \cap A)})\\
+            &= \frac{1}{P(A)} P(\bigcup_{i=1}^{n}{(A_i)} \cap A)\\
+            &= \frac{1}{P(A)} P(\Omega \cap A)\\
+            &= \frac{P(A)}{P(A)} = 1\\
+        \end{align*}
+    \end{proof}
+    %---------------以下補足
+    \begin{itembox}[l]{補足}
+        \begin{align*}
+            \bigcup_{i=1}^{n}{A_i} = \Omega,\, A_i \cap A_j = \phi \qquad (i \neq j)のとき, A_i は \Omega を分割したものである。\\
+        \end{align*}
+        また、$\bigcup_{i=1}^{n}{A_i \cap A}$は以下のように変形できる。\\
+        \begin{align*}
+            \bigcup_{i=1}^{n}{A_i \cap A} = (\bigcup_{i=1}^{n}{A_i}) \cap A = \Omega \cap A = A
+        \end{align*}
+    \end{itembox}\\
+
+%----------------------------------------------------------例2.7
+    \newpage
+    \noindent
+    \textbf{例 2.7.} $A, B, C \in \mathcal{A}$ について, 以下が成り立つ。\\
+    \begin{align*}
+        P(A \cap B \cap C) = P(A)P(B \mid A)P(C \mid A \cap B)
+    \end{align*}
+
+    %　---------------以下証明
+    \begin{proof}
+        \begin{align*}
+            P(A)P(B \mid A)P(C \mid A \cap B) &= P(A) \frac{P(A)}{P(A \cap B)} \frac{P(C \cap B \cap A)}{P(A \cap B)}\\
+            &= P(A \cap B \cap C)
+        \end{align*}
+    \end{proof}
+    %---------------以下補足
+    \begin{itembox}[l]{注}
+        積集合は条件付き確率の積であって、確率の積ではない。\\
+        \begin{align*}
+            P(A \cap B) &= P(A)P(B \mid A)\\
+            &\neq P(A)・P(B)\\
+        \end{align*}
+    \end{itembox}\\
+
+%----------------------------------------------------------定理2.17
+    \noindent
+    \textbf{定理 2.17.} 一般乗法定理\\
+    $A_i \in \mathcal{A} (i = 1,2, \dots, n)m P\left(\bigcap_{i=1}^{n-1}{A_i}\right) > 0 ならば, 以下が成り立つ。$\\
+    \begin{align*}
+        P(\bigcap_{i=1}^{n}{A_i}) &= P(A_1)P(A_2 \mid A_1)P(A_3 \mid A_1 \cap A_2)\\
+        & × \cdots × P(A_i \mid \bigcap_{i=1}^{l-1}{A_i}) × \cdots × P(A_n \mid \bigcap_{i=1}^{n-1}{A_i})\\
+    \end{align*}
+    この性質は\textbf{一般乗法定理}とよばれる。(帰納法で証明可能)\\
+
+%----------------------------------------------------------例2.8
+    \noindent
+    \textbf{例 2.8.} ポリアの壺\\
+    1つの壺に白玉w個, 黒玉b個入っている。この壺から無作為に1個の玉を取り出す。この玉を元の壺に返し,その際に,取り出された多摩と同じ色の玉を$c(>0)$個壺に入れる。
+    このような試行をn回行う。i番目に取り出された玉の色が白あるいは黒である事象をそれぞれ$W_i, B_i(i=1,2,\dots,n)$と記す。このとき,\\
+    \begin{align*}
+        P(W_i) = \frac{w}{w+b},\qquad P(B_i) = \frac{b}{w+b} \qquad(i=1,2,\dots,n)\\
+    \end{align*}
+    が成り立つ。この例を \textbf{ポリアの壺}とよばれる。\\
+    %　---------------以下証明
+    \begin{proof}
+        i = 1のとき,以下のように表される。\\
+        \begin{align*}
+            P(W_1) = \frac{w}{w+b}, \qquad P(B_1) = \frac{b}{w+b}
+        \end{align*}
+        i = 2のときを考える。\\
+        \begin{align*}
+            P(W_2 \mid W_1) = \frac{w + c}{w + b + c} \, \neq \, P(W_2) \qquad P(W_2 \mid B_1) = \frac{w}{w + b + c}\\
+            P(B_2 \mid B_1) = \frac{b + c}{w + b + c} \qquad P(B_2 \mid B_1) = \frac{b}{w + b + c}\\
+        \end{align*}
+
+        \begin{align*}
+            P(W_1 \cap W_2) = P(W_1)P(W_2 \mid W_1) = \frac{w}{w+b} \cdot \frac{w+c}{w+b+c}\\
+            P(B_1 \cap B_2) = P(B_1)P(B_2 \mid B_1) = \frac{b}{w+b} \cdot \frac{b+c}{w+b+c}\\
+            P(W_1 \cap B_2) = P(W_1)P(B_2 \mid W_1) = \frac{w}{w+b} \cdot \frac{b}{w+b+c}\\
+            P(B_1 \cap W_2) = P(B_1)P(W_2 \mid B_1) = \frac{b}{w+b} \cdot \frac{w}{w+b+c}\\
+        \end{align*}
+
+        \begin{align*}
+            W_2 = W_2 \cap (W_1 \cup B_1) = (W_2 \cap W_1) \cap (W_2 \cup B_1) より、
+        \end{align*}
+        \begin{align*}
+            P(W_2) &= P(W_1 \cap W_2) + P(W_1 \cap W_2)\\
+            &= \frac{w}{w+b} \cdot \frac{w+c}{w+b+c} + \frac{b}{w+b} \cdot \frac{b}{w+b+c}\\
+            &= \frac{w(w+c+b)}{(w+b)(w+b+c)} = \frac{w}{w+b}\\
+        \end{align*}
+    \end{proof}
+
+    %----------------------------------------------------------定理2.18
+    \noindent
+    \textbf{定理 2.18.} 全確率の定理\\
+    $A_i, B \in \mathcal{A} (i = 1, 2, \dots, n)に対して, \bigcup_{i=1}^{n}{A_i} = \Omega, A_i \cap A_j \, (i \neq j) が成り立ち,P(A_i) > 0 ならば ,以下が成り立つ。$
+    \begin{align*}
+        P(B) = \sum_{i=1}^{n}{P(A_i)P(B \mid A_i)}\\
+    \end{align*}
+    この性質は, \textbf{全確率の定理}とよばれる。\\
+
+    %　---------------以下証明
+    \begin{proof}
+        \begin{align*}
+            P(B) &= P(B \cap \Omega)\\
+            &= P(B \cap (\bigcup_{i=1}^{n}{A_i}))\\
+            &= P(\bigcup_{i=1}^{n}{(B \cap A_i)}))\\
+            &= \sum_{i=1}^{n}{P(B \cap A_i)}\\
+            &= \sum_{i=1}^{n}{P(A_i)P(B \mid A_i)}\\
+        \end{align*}
+    \end{proof}
+
+    %----------------------------------------------------------定理2.19
+    \noindent
+    \textbf{定理 2.19.} ベイズの定理\\
+    $A_i, B \in \mathcal{A} (i = 1, 2, \dots, n)に対して, \bigcup_{i=1}^{n}{A_i} = \Omega, A_i \cap A_j \, (i \neq j) が成り立ち,P(A_i), P(B) > 0 ならば ,以下が成り立つ。$
+    \begin{align*}
+        P(A_j \mid B) = \frac{P(A_j)P(B \mid A_j)}{\sum_{i=1}^{n}{P(A_i)P(B \mid A_i)}} \qquad (j = 1, 2, \dots, n)\\
+    \end{align*}
+    この性質は, \textbf{ベイズの定理}とよばれる。\\
+    %---------------以下補足
+    \begin{itembox}[l]{補足}
+        事前確率：$P(A_i) \cdots 事象Bが起きる前$\\
+        事後確率：$P(A_i \mid B) \cdots 事象Bが起きた後$\\
+    \end{itembox}\\
+
+
+%----------------------------------------------------------例2.9
+    \noindent
+    \textbf{例 2.9.} モンティホール問題\\
+    存在する3つのドアの名前ををA, B, C, ドアが当たりである確率をP(X), P(Y)をホストが開けるドアの確率とおく。\\
+    ここで, プレイヤーがドアAを常に最初に選択するという仮定のもと,プレイヤーが当たりのドアを開ける条件付き確率を考える。\\
+    プレイヤーが最初の選択を変えないとき\,($P(Y = A \mid X = B) = \frac{1}{2}$),以下のようになる。
+    \begin{align*}
+        P(X = B \mid Y= A) = \frac{P(Y = A \mid X = B)}{P(Y = A)}P(X = B) = \frac{1}{3}
+    \end{align*}
+    プレイヤーが最初の選択を変えるとき\, ($P(Y = A \mid X = C) = 1$),以下のようになる。
+    \begin{align*}
+        P(X = C \mid Y= A) = \frac{P(Y = A \mid X = C)}{P(Y = A)}P(X = C) = \frac{2}{3}
+    \end{align*}
+    したがって、プレイヤーは最初の選択を変えたときのほうが当たりやすいと言える。
+
+\end{document}
+%本文ここまで=========================================================

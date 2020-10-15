@@ -1,0 +1,151 @@
+\synctex=1
+\documentclass[dvipdfmx,10pt, a4j]{jarticle}
+%----------------------------------------------------------
+%パッケージ読み込み
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm} %定理環境の拡張
+\usepackage{ascmac}
+\usepackage{bm}
+\usepackage{cases}
+\usepackage{comment} %非表示にするためのコメント
+\usepackage{enumerate}
+\usepackage{float} %画像をその場に表示．[h]の代わりに[H]
+\usepackage{graphicx} % eps 形式の図版取り込みのため
+\usepackage{mathrsfs}
+\usepackage{url}
+\usepackage[dvipdfmx]{hyperref}
+%----------------------------------------------------------
+
+%----------------------------------------------------------
+%命題関係の定義
+\theoremstyle{definition}
+\newtheorem{definition}{定義}[section]
+\newtheorem{theorem}{定理}[section]
+\newtheorem{proposition}[theorem]{命題}
+\newtheorem{lemma}[theorem]{補題}
+\newtheorem{col}[theorem]{系}
+\newtheorem{example}{例}[section]
+\newtheorem{remark}{注意}[section]
+%----------------------------------------------------------
+
+%タイトル・著者===================================================
+\title{第2回 データベースシステム 課題}
+\author{小森 一輝}
+%=================================================================
+
+%本文開始=========================================================
+\begin{document}
+
+    \maketitle
+
+%カウンタ--------------------------------------------------
+    \setcounter{section}{2}
+%\setcounter{subsection}{0}
+%\setcounter{subsubsection}{0}
+%\setcounter{theorem}{0}
+%----------------------------------------------------------問1
+    \noindent
+    \textbf{問1} 積和標準形\\
+    \begin{align*}
+        (A\, IMP\, B)\, OR\, (B\, IMP\, A)
+        &=\, (NOT\, A\, OR\, B)\, OR\, (NOT\, B\, OR\, A)\\
+        &=\, NOT\, A\, OR\, B\, OR\, NOT\, B\, OR\, A\\
+    \end{align*}
+    \begin{align*}
+        (A\, EQV\, B)\, AND\, (B\, EQV\, A)
+        &=\, (NOT\, A\, AND\, NOT\, B\, OR\, A\, AND\, B)\\
+        &AND\, (NOT\, B\, AND\, NOT\, A\, OR\, B\, AND\, A)\\
+        交換法則より、2つの EQV は同値であるから、\\
+        &= NOT\, A\, AND\, NOT\, B\, OR\, A\, AND\, B\\
+    \end{align*}
+%----------------------------------------------------------問2.1
+    \noindent
+    \textbf{問2.1.} 積和標準形X\\
+    \begin{align*}
+        &A\, AND\, B\, AND\, C\, OR\\
+        &A\, AND\, NOT\, B\, AND\, NOT\, C\, OR\\
+        &NOT\, A\, AND\, NOT\, B\, AND\, C\, OR\\
+        &NOT\, A\, AND\, NOT\, B\, AND\, NOT\, C\\
+    \end{align*}
+%----------------------------------------------------------問2.2
+    \noindent
+    \textbf{問2.2.} 和積標準形Y\\
+    \begin{align*}
+        &NOT\, A\, OR\, NOT\, B\, OR\, C\, AND\\
+        &NOT\, A\, OR\, B\, OR\, NOT\, C\, AND\\
+        &A\, OR\, NOT\, B\, OR\, NOT\, C\, AND\\
+        &A\, OR\, NOT\, B\, OR\, C\\
+    \end{align*}
+
+    \newpage
+%----------------------------------------------------------問2.3
+    \noindent
+    \textbf{問2.3.} X\,と\, Yが等しいことの証明\\
+
+    それぞれの場合について、真理値表は以下のように表される。\\
+
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+        \hline
+        A & B & C & A\, AND\, B & A\, OR\, B & B\, AND\, C & B\, OR\, C & C\, AND\, A & C\, OR\, A\\
+        \hline
+        \hline
+        T & T & T & T & T & T & T & T & T\\
+        \hline
+        T & F & T & F & T & F & T & T & T\\
+        \hline
+        T & F & F & F & T & F & F & F & T\\
+        \hline
+        F & T & F & F & T & F & T & F & F\\
+        \hline
+        F & F & T & F & F & F & T & F & T\\
+        \hline
+        F & F & F & F & F & F & F & F & F\\
+        \hline
+    \end{tabular}\\
+
+    まず、真理値表より、Xを整理する。\\
+
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        A & B & C & X\\
+        \hline
+        \hline
+        T & T & T & T\\
+        \hline
+        T & F & T & F\\
+        \hline
+        T & F & F & T\\
+        \hline
+        F & T & F & F\\
+        \hline
+        F & F & T & T\\
+        \hline
+        F & F & F & T\\
+        \hline
+    \end{tabular}\\
+
+    次に、真理値表より、Yを整理する。\\
+
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        A & B & C & Y\\
+        \hline
+        \hline
+        T & T & T & T\\
+        \hline
+        T & F & T & F\\
+        \hline
+        T & F & F & T\\
+        \hline
+        F & T & F & F\\
+        \hline
+        F & F & T & T\\
+        \hline
+        F & F & F & T\\
+        \hline
+    \end{tabular}\\
+
+    以上の2つの真理値表より、XとYの真理値は一致することから、XとYは等しいことが示された。
+\end{document}
+%本文ここまで=========================================================

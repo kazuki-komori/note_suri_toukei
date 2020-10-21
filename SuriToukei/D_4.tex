@@ -46,7 +46,7 @@
 %\setcounter{subsection}{0}
 %\setcounter{subsubsection}{0}
 %\setcounter{theorem}{0}
-%----------------------------------------------------------定理2.8
+%----------------------------------------------------------定理2.12
     \noindent
     \textbf{定理 2.12.} 事象の独立\\
     $確率空間(\Omega, \mathcal{A}, P) において, A, B \in \mathcal{A}が,$\\
@@ -56,20 +56,137 @@
     を満たすとき, 事象AとBは \textbf{独立} であるといい、$A \indepe B$ と記す。\\
     また、一般に $P(A \cap B) = P(A)P(B \mid A)$が成りたち、事象A,Bが互いに独立の場合特に、$P(B \mid A) = P(B)$が成り立つ。\\
 
-%----------------------------------------------------------定理2.8
+%----------------------------------------------------------定理2.20
     \noindent
     \textbf{定理 2.20.} $A, B \in \mathcal{A} について,以下が成り立つ。$\\
     \begin{enumerate}[i)]
         \item $A \indepe B, A \indepe B^{c}, A^{c} \indepe B, A^{c} \indepe B^{c} は動値の命題である。$
+        %　---------------以下証明
         \begin{proof}
             \begin{align*}
                 A \indepe B => A \indepe B^{c} を示す。\\
-                A = (A \cap B) \cup (A \cap B^{c}), \qquad (A \cap B) \cap (A \cap B^{c}) = \phi\\
+                A = (A \cap B) \cup (A \cap B^{c}), \qquad (A \cap B) \cap (A \cap B^{c}) = \phi
+            \end{align*}
+            \begin{align*}
                 p(A \cap B^{c}) &= P(A) - P(A \cap B)\\
-                &= P(A) - P(A) \cdot P(B)\\
+                &= P(A) - P(A) \cdot P(B) \qquad (\because{A \indepe B}) \\
+                &= P(A)(1-P(B))\\
+                &= P(A)P(B^{c})\\
+            \end{align*}
+        \end{proof}
+        
+        \newpage
+        \item $任意の A \in \mathcal{A} に対して, A \indepe \Omega$
+        %　---------------以下証明
+        \begin{proof}
+            \begin{align*}
+                A \subset \Omega, \, P(\Omega) = 1\\
+                A \subset \Omega \, より, \, A \cap \Omega = A
+            \end{align*}
+            したがって,\\
+            \begin{align*}
+                P(A \cap \Omega) = P(A) = P(A) \cdot P(\Omega) \qquad (\because p(\Omega) = 1)\\
+            \end{align*}
+        \end{proof}
+        \item $N \in \mathcal{A} が P(N) = 0 を満たすとき, 任意のA \in \mathcal{A} に対して, A \indepe N$
+        %　---------------以下証明
+        \begin{proof}
+            \begin{align*}
+                N \in \mathcal{A}, \, P(N) = 0\\
+                A \cap N \subset N より,
+            \end{align*}
+            \begin{align*}
+                P(A \cap N) \leq P(N) = 0\\
+                P(A) \cdot P(N) = 0\\
+            \end{align*}
+        \end{proof}
+        \item $P(B) > 0のとき, A \indepe Bであるための必要十分条件は, \, P(A \mid B) = P(A) である。$
+        %　---------------以下証明
+        \begin{proof}
+            \begin{align*}
+                P(B) > 0のとき, A \indepe B \leftrightarrow p(A \mid B) = P(A)\\
+            \end{align*}
+            $\rightarrow (必要条件)$\\
+            $A \indepe B とする$
+            \begin{align*}
+                P(A \mid B) = \frac{P(A \cap B)}{P(B)} = \frac{P(A) \cdot P(B)}{P(B)} = P(A)\\
+            \end{align*}
+            $\leftarrow (十分条件)$\\
+            $P(A \mid B) = P(A) とする$
+            \begin{align*}
+                P(A \mid B) = \frac{P(A \cap B)}{P(B)} = P(A)\\
             \end{align*}
         \end{proof}
     \end{enumerate}
 
+%----------------------------------------------------------定理2.13
+\noindent
+\textbf{定理 2.13.} 事象族の独立\\
+$確率空間 (\Omega, \mathcal{A}, P)における事象列, \, \{A_i \mid i = 1,2, \dots ,n\}について, 任意の1 \leq m \leq n, 1 \leq i_1 \leq i_2 < \cdots < i_m \leq n に対して,$\\
+\begin{align*}
+    P(\bigcap_{j=1}^{m}{A_j}) = \prod_{j=1}^{m}{P(A_{ij})}\\
+\end{align*}
+が成り立つとき, 事象例 $\{A_i \mid i = 1,2, \dots ,n \}$ は互いに独立であると呼ばれる。\\
+さらに,$確率空間 (\Omega, \mathcal{A}, P)$における事象族 $\{ A_{\lambda} \mid \lambda \in A \}について,その任意有限個の要素からなる族が互いに独立のとき,事象族$
+$\{ A_{\lambda} \mid \lambda \in A \}$ は互いに独立であると呼ばれる。\\
+
+\textbf{例} $n = 3 \rightarrow m = 2,3$\\
+m = 3\\
+\begin{enumerate}[1)]
+    \item $P(A_1 \cap A_2 \cap A_3) = P(A_1)P(A_2)P(A_3)$\\
+    \item $P(A_1 \cap A_2) = P(A_1)P(A_2)$\\
+    \item $P(A_2 \cap A_3) = P(A_2)P(A_3)$\\
+    \item $P(A_3 \cap A_1) = P(A_3)P(A_1)$\\
+\end{enumerate}
+1 $\to$ 4 すべて成り立つとき,事象列$A_1, A_2, A_3$は独立である。\\
+
+\newpage
+%----------------------------------------------------------例2.10
+\noindent
+\textbf{例 2.10.} $A, B, C が互いに独立ならば, A^{c}, B^{c} ,C^{c} も互いに独立となる。すなわち,$\\
+\begin{proof}
+    $A^{c} \indepe B^{c} \indepe C^{c}$を示す.\\
+    \begin{align*}
+        P((A \cup B) \cap C) &= P((A \cap C) \cup (B \cap C))\\
+        &= P(A \cap C) + P(B \cap C) - P(A \cap B \cap C)\\
+        &= P(A) \cdot P(C) + P(B) \cdot P(C) - P(A) \cdot P(B) \cdot P(C)\\
+        &= (P(A) + P(B) - P(A)P(B))P(C) \qquad (\because それぞれの事象は独立)\\
+        &= (P(A) + P(B) - P(A \cap B))P(C)\\
+        &= P(A \cup B) \cdot P(C)\\
+        &= (A \cup B) \indepe C \\
+        &= (A \cup B) \indepe C^{c} \qquad (\because 定理 2.20-1)\\
+        &= (A^{c} \cap B^{c}) \indepe C^{c} \qquad (\because ドモルガン)\\
+        &= A^{c} \indepe B^{c} \indepe C^{c}\\
+    \end{align*}
+\end{proof}
+
+%----------------------------------------------------------定理2.21
+\noindent
+\textbf{定理 2.21.} $確率空間 (\Omega, \mathcal{A}, P)における事象列 \{ A_i \mid i = 1, 2, \dots ,n \}が互いに独立のとき以下が成り立つ。$\\
+\begin{align*}
+    P(\bigcup_{i=1}^{n}{A_i}) = 1 - \prod_{i = 1}^{n}{P(A_i^{c})}\\
+\end{align*}
+\begin{proof}
+    $(\{A_i\}が独立　\rightarrow \{A^{c}_i\}が独立 ※要証明)$\\
+    \begin{align*}
+        P(\bigcup_{i=1}^{n}{A_i}) &= 1 - P((\bigcup_{i=1}^{n}{A_i})^{c})\\
+        &= 1 - P(\bigcap_{i=1}^{n}{A^{c}_i}) \qquad (\because ドモルガン)\\
+        &= 1 - \prod_{i=1}^{n}{P(A^{c}_i)}\\
+    \end{align*}
+\end{proof}
+
+\newpage
+%----------------------------------------------------------定義3.1
+\noindent
+\textbf{定義 3.1.} 確率変数\\
+$確率空間 (\Omega, \mathcal{A}, P)において, 写像X: \Omega \rightarrow \mathbb{R}が任意の集合B \in \mathcal{B}について,$\\
+\begin{align*}
+    X^{-1}(B) = \{ \omega \mid X(\omega) \in B\} \in \mathcal{A}\\
+\end{align*}
+を満たすならば, Xは\textbf{確率変数}とよばれる。\\
+$B \in \mathcal{B}を区間全体の集合\textbf{ボレル集合}とよぶ。$\\
+$X^{-1}(B) \in \mathcal{A}のとき, XによるBの逆像と表現する。$
+
 \end{document}
 %本文ここまで=========================================================
+

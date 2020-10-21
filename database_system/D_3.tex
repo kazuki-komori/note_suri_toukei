@@ -1,0 +1,83 @@
+\synctex=1
+\documentclass[dvipdfmx,10pt, a4j]{jarticle}
+%----------------------------------------------------------
+%パッケージ読み込み
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm} %定理環境の拡張
+\usepackage{ascmac}
+\usepackage{bm}
+\usepackage{cases}
+\usepackage{comment} %非表示にするためのコメント
+\usepackage{enumerate}
+\usepackage{float} %画像をその場に表示．[h]の代わりに[H]
+\usepackage{graphicx} % eps 形式の図版取り込みのため
+\usepackage{mathrsfs}
+\usepackage{url}
+\usepackage[dvipdfmx]{hyperref}
+%----------------------------------------------------------
+
+%----------------------------------------------------------
+%命題関係の定義
+\theoremstyle{definition}
+\newtheorem{definition}{定義}[section]
+\newtheorem{theorem}{定理}[section]
+\newtheorem{proposition}[theorem]{命題}
+\newtheorem{lemma}[theorem]{補題}
+\newtheorem{col}[theorem]{系}
+\newtheorem{example}{例}[section]
+\newtheorem{remark}{注意}[section]
+%----------------------------------------------------------
+
+%タイトル・著者===================================================
+\title{第3回 データベースシステム 課題}
+\author{1108190116 \, 小森 一輝}
+%=================================================================
+
+%本文開始=========================================================
+\begin{document}
+
+    \maketitle
+
+%カウンタ--------------------------------------------------
+    \setcounter{section}{2}
+%\setcounter{subsection}{0}
+%\setcounter{subsubsection}{0}
+%\setcounter{theorem}{0}
+%----------------------------------------------------------問1
+    \noindent
+    \textbf{問1} $(\forall_x)(f(x)OR(\exists_y)(f(y) AND f(x)) IMP f(x))$ \\
+    \begin{align*}
+        (与式) &= (\forall_x)(f(x)\, OR\, NOT\, (\exists_y)(f(y)\, AND\, f(x))\, OR\, f(x))\\
+        &= (\forall_x)(f(x)\,OR\,NOT\,(\exists_y)f(y)\,AND\,NOT\,f(x)\,OR\,f(x))\\
+        &= (\forall_x)(F\, OR\, NOT\,(\exists_y)f(y)\,OR\,f(x))\\
+        &= NOT\, (\exists_y)f(y)\, OR\, (\forall_x)\, f(x)\\
+        &= NOT\, (\exists_x)f(x)\, OR\, (\forall_x)\, f(x)\\
+        &= T\\
+    \end{align*}
+
+%----------------------------------------------------------問2
+    \noindent
+    \textbf{問2} $(\forall_x)(g(x)\, IMP \, (\forall_y)(g(y)\, IMP\, (\exists_z)(g(x)\, AND \, g(z)\, IMP\, g(y))))$ \\
+    \begin{align*}
+        (与式) &= (\forall_x)(g(x)\, IMP \, (\forall_y)(g(y)\, IMP\, (\exists_z)(g(x)\, AND\, NOT\, g(z)\, OR\, g(y))))\\
+        &= (\forall_x)(NOT\, g(x)\, OR \, (\forall_y)(NOT\, g(y)\, OR\, (\exists_z)(g(x)\, AND\, NOT\, g(z)\, OR\, g(y))))\\
+        &= (\forall_x)(NOT\, g(x)\, OR \, (\forall_y)(NOT\, g(y)\, OR\, g(x)\, AND\, NOT\, (\exists_z)\, g(z)\, OR\, g(y)))\\
+        &= (\forall_x)(NOT\, g(x)\, OR\, T\, OR\, g(x)\, AND\, NOT\, (\exists_z)\, g(z))\\
+        &= (T\, AND\, NOT\, (\exists_z)\, g(z))\\
+        &= NOT\, (\exists_z)\, g(z)\\
+        &= NOT\, (\exists_x)\, g(x)\\
+    \end{align*}
+
+%----------------------------------------------------------問3
+    \noindent
+    \textbf{問3} $(\exists_x)(f(x)\, AND \, (\forall_y)(f(x)\, IMP\, f(y))\, OR\, (\exists_z)(NOT\, f(z)\, OR\, NOT\, f(x)))$ \\
+    \begin{align*}
+        (与式) &= (\exists_x)(f(x)\, AND \,NOT\, f(x)\, OR\, (\forall_y)\, f(y)\, OR\, (\exists_z)(NOT\, f(z)\, OR\, NOT\, f(x)))\\
+        &= (\exists_x)(F\, OR\, (\forall_y)\, f(y)\, OR\, NOT\, (\exists_z)f(z)\, OR\, NOT\, f(x))\\
+        &= (\forall_y)\, f(y)\, OR\, NOT\, (\exists_z)f(z)\, OR\, NOT\, (\exists_x)f(x))\\
+        &= (\forall_x)\, f(x)\, OR\, NOT\, (\exists_x)f(x)\\
+        &= T\\
+    \end{align*}
+\end{document}
+%本文ここまで=========================================================

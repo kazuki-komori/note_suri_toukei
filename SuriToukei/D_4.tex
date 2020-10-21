@@ -1,0 +1,75 @@
+\synctex=1
+\documentclass[dvipdfmx,10pt, a4j]{jarticle}
+%----------------------------------------------------------
+%パッケージ読み込み
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm} %定理環境の拡張
+\usepackage{ascmac}
+\usepackage{bm}
+\usepackage{cases}
+\usepackage{comment} %非表示にするためのコメント
+\usepackage{enumerate}
+\usepackage{float} %画像をその場に表示．[h]の代わりに[H]
+\usepackage{graphicx} % eps 形式の図版取り込みのため
+\usepackage{mathrsfs}
+\usepackage{url}
+\usepackage[dvipdfmx]{hyperref}
+%----------------------------------------------------------
+%自作コマンド
+\newcommand{\indepe}{\mathop{\perp\!\!\!\perp}}
+
+%----------------------------------------------------------
+%命題関係の定義
+\theoremstyle{definition}
+\newtheorem{definition}{定義}[section]
+\newtheorem{theorem}{定理}[section]
+\newtheorem{proposition}[theorem]{命題}
+\newtheorem{lemma}[theorem]{補題}
+\newtheorem{col}[theorem]{系}
+\newtheorem{example}{例}[section]
+\newtheorem{remark}{注意}[section]
+%----------------------------------------------------------
+
+%タイトル・著者===================================================
+\title{第4回 数理統計 レポート}
+\author{小森 一輝}
+%=================================================================
+
+%本文開始=========================================================
+\begin{document}
+
+    \maketitle
+
+%カウンタ--------------------------------------------------
+    \setcounter{section}{2}
+%\setcounter{subsection}{0}
+%\setcounter{subsubsection}{0}
+%\setcounter{theorem}{0}
+%----------------------------------------------------------定理2.8
+    \noindent
+    \textbf{定理 2.12.} 事象の独立\\
+    $確率空間(\Omega, \mathcal{A}, P) において, A, B \in \mathcal{A}が,$\\
+    \begin{align*}
+        P(A \cap B) = P(A)P(B)
+    \end{align*}
+    を満たすとき, 事象AとBは \textbf{独立} であるといい、$A \indepe B$ と記す。\\
+    また、一般に $P(A \cap B) = P(A)P(B \mid A)$が成りたち、事象A,Bが互いに独立の場合特に、$P(B \mid A) = P(B)$が成り立つ。\\
+
+%----------------------------------------------------------定理2.8
+    \noindent
+    \textbf{定理 2.20.} $A, B \in \mathcal{A} について,以下が成り立つ。$\\
+    \begin{enumerate}[i)]
+        \item $A \indepe B, A \indepe B^{c}, A^{c} \indepe B, A^{c} \indepe B^{c} は動値の命題である。$
+        \begin{proof}
+            \begin{align*}
+                A \indepe B => A \indepe B^{c} を示す。\\
+                A = (A \cap B) \cup (A \cap B^{c}), \qquad (A \cap B) \cap (A \cap B^{c}) = \phi\\
+                p(A \cap B^{c}) &= P(A) - P(A \cap B)\\
+                &= P(A) - P(A) \cdot P(B)\\
+            \end{align*}
+        \end{proof}
+    \end{enumerate}
+
+\end{document}
+%本文ここまで=========================================================

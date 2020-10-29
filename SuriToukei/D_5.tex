@@ -1,0 +1,269 @@
+\synctex=1
+\documentclass[dvipdfmx,10pt, a4j]{jarticle}
+%----------------------------------------------------------
+%パッケージ読み込み
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm} %定理環境の拡張
+\usepackage{ascmac}
+\usepackage{bm}
+\usepackage{cases}
+\usepackage{comment} %非表示にするためのコメント
+\usepackage{enumerate}
+\usepackage{float} %画像をその場に表示．[h]の代わりに[H]
+\usepackage{graphicx} % eps 形式の図版取り込みのため
+\usepackage{mathrsfs}
+\usepackage{url}
+\usepackage[dvipdfmx]{hyperref}
+\usepackage{color}
+%----------------------------------------------------------
+%自作コマンド
+\newcommand{\indepe}{\mathop{\perp\!\!\!\perp}}
+
+%----------------------------------------------------------
+%カスタマイズ
+
+
+%----------------------------------------------------------
+%命題関係の定義
+\theoremstyle{definition}
+\newtheorem{definition}{定義}[section]
+\newtheorem{theorem}{定理}[section]
+\newtheorem{proposition}[theorem]{命題}
+\newtheorem{lemma}[theorem]{補題}
+\newtheorem{col}[theorem]{系}
+\newtheorem{example}{例}[section]
+\newtheorem{remark}{注意}[section]
+%----------------------------------------------------------
+
+%タイトル・著者===================================================
+\title{第5回 数理統計 レポート}
+\author{小森 一輝}
+%=================================================================
+
+%本文開始=========================================================
+\begin{document}
+
+    \maketitle
+
+%カウンタ--------------------------------------------------
+    \setcounter{section}{2}
+%\setcounter{subsection}{0}
+%\setcounter{subsubsection}{0}
+%\setcounter{theorem}{0}
+%----------------------------------------------------------定理3.1
+    \noindent
+    \textbf{定理 3.1.} $標本空間 (\Omega, \mathcal{A}, P)において, 写像X : \Omega \rightarrow \mathbb{R} が確率変数であるための必要十分条件は,X が,$
+    \begin{align*}
+        X^{-1}(( - \infty, x ]) = {\omega \mid X(\omega) \leq x} \in \mathcal{A} \qquad (x \in \mathbb{R})\\
+    \end{align*}
+    を満たすことである。\\
+    %　---------------以下証明
+    \begin{proof}
+        $(\Rightarrow)$\\
+        \begin{align*}
+            &Xが確率変数ならば,任意のB \in \mathcal{B} に対して,\\
+            &X^{-1}(B) = \{\omega \mid X(\omega) \in B\} \in \mathcal{A}\\
+            &なので, B = (- \infty, x] とすれば\\
+            &X^{-1}((- \infty, x]) = \{\omega \mid X(\omega) \in (- \infty, x]\}\\
+            &= \{\omega \mid X(\omega) \leq x\} \in \mathcal{A}\\
+        \end{align*}
+        $(\Leftarrow)$\\
+        \begin{align*}
+            &X^{-1}((- \infty, x]) = \{\omega \mid X(\omega) \in x\} \in \mathcal{A} \qquad (x \in \mathbb{R}) とする\\
+            &ここで, B = (- \infty, x](x \in \mathbb{R}) とし,\\
+            &\{\omega \mid X(\omega) \in B \} \in \mathcal{A} となる集合Bの全体をB_0とする\\
+            &B_0 が完全加法族とすることを示す
+        \end{align*}
+        \begin{enumerate}[i)]
+            \item $\mathbb{R} \in \Omega とする$\\
+            \begin{align*}
+                \{\omega \mid X(\omega) \in \Omega\} &= \{\omega \mid X(\omega) \in \bigcup_{n=1}^{\infty}{(- \infty, n]}\}\\
+                &= \bigcup_{n=1}^{\infty}{\{\omega \mid X(\omega) \in (\infty, n]\}} \in \mathcal{A}\\
+            \end{align*}
+            \item $B \in B_0 ならば \qquad (定義2.2 完全加法族 ii より)$
+            \begin{align*}
+                &\{\omega \mid X(\omega) \in B^{c}\} = \{\omega \mid X(\omega) \in B\}^{c} \in \mathcal{A}\\
+                &よって, B^{c} \in \mathcal{B}
+            \end{align*}
+            \item $B_i \in B_0 (i = 1,2, \dots) \qquad (定義2.2 完全加法族 iii より)$
+            \begin{align*}
+                &\{\omega \mid X(\omega) \in \bigcup_{i=1}^{\infty}{B_i}\} = \bigcup_{i=1}^{\infty}{\{\omega \mid X(\omega) \in B_i\}} \in \mathcal{A}\\
+                &よって,\bigcup_{i=1}^{\infty}{B_i} \in B_0\\
+            \end{align*}
+        \end{enumerate}
+        $以上より, B_0 は完全加法族である$\\
+        $さらに, B_0 = B となることを示す$\\
+        \begin{align*}
+            &まず,B \in B_0 とする\\
+            &B = (- \infty, x], x \in Rより B \in \mathcal{B} となり,\\
+            &B_0 \subset \mathcal{B} となる
+        \end{align*}
+        \begin{align*}
+            &次に, B \in \mathcal{B} とする\\
+            &B = (- \infty, x], (a, b \in R)なので\\
+            &\{\omega \mid X(\omega) \in B\} = \{\omega \mid X(\omega) \in (a, b)\}\\
+            &=\{\omega \mid X(\omega) \in (- \infty, b]\} \cap \{\omega \mid X(\omega) \in (- \infty, a]\}^{c}\\
+            が成り立つ。また,
+        \end{align*}
+        \begin{align*}
+            &\{\omega \mid X(\omega) \in (- \infty, b]\} \in \mathcal{A}\\
+            &\{\omega \mid X(\omega) \in (- \infty, a]\}^{c} \in \mathcal{A}\\
+            &なので, B \in B_0 となる\\
+        \end{align*}
+        $以上より B_0 = \mathcal{B}$\\
+        $よって, 任意の集合B \in \mathcal{B} に対して$\\
+        \begin{align*}
+            X^{-1}(B) = \{\omega \mid X(\omega) \in \mathcal{B}\} \in \mathcal{A}\\
+        \end{align*}
+        よって, Xは確率変数である
+    \end{proof}
+
+    %----------------------------------------------------------定理3.2
+    \newpage
+    \noindent
+    \textbf{定理 3.2.} $標本空間 (\Omega, \mathcal{A}, P)上の, 写像X : \Omega \rightarrow \mathbb{R} に関する次の4つの命題は同値である$
+    \begin{enumerate}[i)]
+        \item $\{\omega \mid X(\omega) \leq x\} \in \mathcal{A}\, (x \in \mathbb{R})$
+        \item $\{\omega \mid X(\omega) < x\} \in \mathcal{A}\, (x \in \mathbb{R})$
+        \item $\{\omega \mid X(\omega) \geq x\} \in \mathcal{A}\, (x \in \mathbb{R})$
+        \item $\{\omega \mid X(\omega) > x\} \in \mathcal{A}\, (x \in \mathbb{R})$
+    \end{enumerate}
+    %　---------------以下証明
+    \begin{proof}
+        $i ) \rightarrow iv)$\\
+        \begin{align*}
+            &\{\omega \mid X(\omega) \leq x\} \in \mathcal{A}\, (x \in \mathbb{R})とする\\
+            &\{\omega \mid X(\omega) > x\} = \{\omega \mid X(\omega) \leq x\}^{c}\\
+            &なので, (完全加法族の)定義より,\\
+            &\{\omega \mid X(\omega) > x\} \in \mathcal{A}
+        \end{align*}
+        
+        $iii ) \rightarrow ii) も同様に示される$\\
+
+        $iv ) \rightarrow iii)$
+        \begin{align*}
+            &\{\omega \mid X(\omega) > x\} \in \mathcal{A}\, (x \in \mathbb{R})とする\\
+            &\{\omega \mid X(\omega) \geq x\} = \lim_{n \to \infty} \{\omega \mid X(\omega) > x - \frac{1}{n}\}\\
+            &= \bigcap_{n=1}^{\infty}{\{\omega \mid X(\omega) > x - \frac{1}{n}\}}\\
+            &ここで, iv) の仮定より,\\
+            &\{\omega \mid X(\omega) > x - \frac{1}{n}\} \in \mathcal{A} なので\\
+            &\bigcap_{n=1}^{\infty}{\{\omega \mid X(\omega) > x - \frac{1}{n}\}} \in \mathcal{A} が導かれる
+        \end{align*}
+
+        $ii ) \rightarrow i)$
+        \begin{align*}
+            &\{\omega \mid X(\omega) < x\} \in \mathcal{A}\, (x \in \mathbb{R})とする\\
+            &\{\omega \mid X(\omega) \leq x\} = \lim_{n \to \infty} \{\omega \mid X(\omega) < x + \frac{1}{n}\}\\
+            &= \bigcap_{n=1}^{\infty}{\{\omega \mid X(\omega) < x + \frac{1}{n}\}}\\
+            &ここで, ii) の仮定より,\\
+            &\{\omega \mid X(\omega) < x + \frac{1}{n}\} \in \mathcal{A} なので\\
+            &\bigcap_{n=1}^{\infty}{\{\omega \mid X(\omega) < x + \frac{1}{n}\}} \in \mathcal{A} が導かれる
+        \end{align*}
+    \end{proof}
+
+    %----------------------------------------------------------例3.1
+    \newpage
+    \noindent
+    \textbf{例 3.1.} $Xを標本空間 (\Omega, \mathcal{A}, P)上の確率変数とすれば,$\\
+    $aX + b(a, b \in \mathbb{R}, a \neq 0), X^{2}, \sqrt{X}(X \geq 0)も確率変数となる。$
+    \begin{proof}
+        (1) aX + b\\
+        \begin{enumerate}[i)]
+            \item $a > 0 のとき, \{aX + b \leq x\} = \{X \leq \frac{x-b}{a}\} \in \mathcal{A}$
+            \item $a < 0 のとき, \{aX + b \leq x\} = \{X \geq \frac{x-b}{a}\} \in \mathcal{A}$
+            \item $a = 0 のとき, $\\
+            \begin{align*}
+                \{aX + b \leq x\} = \{aX \leq x-b\} =
+                \begin{cases}
+                    \Omega \qquad (x-b \geq 0)\\
+                    \phi \qquad (x-b < 0)
+                \end{cases}
+                \in \mathcal{A} \qquad (※aX = 0)
+            \end{align*}
+        \end{enumerate}
+        (2) $X^{2}$\\
+        \begin{align*}
+            \{X^{2} < x\} =
+            \begin{cases}
+                \phi \qquad (x \leq 0)\\
+                \sqrt{x} < X < \sqrt{x} \qquad (x > 0)
+            \end{cases}
+            \in \mathcal{A} であり,\\
+            \{- \sqrt{x} < X < \sqrt{x}\} = \{X < \sqrt{x}\} \cap \{X > - \sqrt{x}\} \in \mathcal{A}\\
+        \end{align*}
+        (3) $\sqrt{X}$\\
+        \begin{align*}
+            \{\sqrt{X} < x\} = 
+            \begin{cases}
+                \phi \qquad (x \leq 0)\\
+                \{X \leq x^{2}\} \qquad (x > 0)
+            \end{cases}
+            \in \mathcal{A}
+        \end{align*}
+    \end{proof}
+    
+    %----------------------------------------------------------命題3.3
+    \newpage
+    \noindent
+    \textbf{命題 3.3.} $X, Yを確率空間(\Omega, \mathcal{A}, P)上の確率変数とすれば,$\\
+    $X + Y, XY, X/Y (Y \neq 0), max(X, Y), min(X, Y)も確率変数となる。$\\
+    \begin{proof}
+        \begin{enumerate}[i)]
+            \item $X + Yが確率変数であることを示す$\\
+            \begin{align*}
+                &すべての有理数r_n(n = 1,2,\dots)に対して,\\
+                &集合A = \bigcup_{n=1}^{\infty}{\{\{X < r_n\} \cap \{Y < z - r_n\}\}} \qquad (z \in \mathbb{R})とおく\\
+                &\{X < r_n\} \in \mathcal{A}, \{Y < z - r_n\} \in \mathcal{A}なので,\\
+                &\{X < r_n\} \cap \{Y < z - r_n\} \in \mathcal{A}となり,\\
+                &A \in \mathcal{A}\\
+                &一方, 集合B = \{X + Y < z\} とおく\\
+                &任意の \textcolor{red}{\omega \in A} に対して, 有理数 r_n が存在して\\\
+                &X(\omega) < r_n, Y(\omega) < z - r_n が成り立つ\\
+                &したがって, X(\omega) + Y(\omega) < zとなり,\\
+                &\textcolor{red}{\omega \in B より, A \subset B}\\
+                &逆に任意の \omega \in B に対して X(\omega) + Y(\omega) < z\\
+                &となるから, X(\omega) < z- Y(\omega)\\
+                &\textcolor{cyan}{ここで有理数の稠密性(切っても隣の有理数は常に存在する)より,}\\
+                &\textcolor{cyan}{あるnが存在して,}\\
+                &\textcolor{cyan}{X(\omega) < r_n, Y(\omega) < z - r_n}\\
+                &\textcolor{cyan}{が成り立つ}\\
+                &よって, \omega \in \{X < r_n\} \cap \{Y < z - r_n\}\\
+                &が成り立つ\\
+                &\textcolor{red}{よって, \omega \in A となり, B \subset A}\\
+                &\textcolor{red}{以上より, A = B となり}\\
+                &\textcolor{red}{A \in \mathcal{A}であるから, B \in \mathcal{A}}\\
+            \end{align*}
+            \newpage
+            \item $XYが確率変数であることを示す$\\
+            \begin{align*}
+                &aX + b \in \mathcal{A} より, a = -1, b = 0とする\\
+                &-X \in \mathcal{A} よって i)より,\\
+                &X + (-Y) = X - Y \in \mathcal{A}\\
+                &X^{2} \in \mathcal{A}なので, (X + Y)^{2} \in \mathcal{A}, (X - Y)^{2} \in \mathcal{A}\\
+                &よって,\\
+                &XY = \frac{1}{4}\{(X + Y)^{2} - (X - Y)^{2}\} \in \mathcal{A}\\
+            \end{align*}
+            \item $X/Yが確率変数であることを示す \qquad(Y \neq 0)$\\
+            \begin{align*}
+                &\textcolor{cyan}{\{Y > 0\} \cup \{Y < 0\} = \Omega}\\
+                &\{X/Y < x\} = \{X/Y < x\} \cap \Omega\\
+                &=\{\{Y > 0\} \cap \{X/Y < x\}\} \cup \{\{Y < 0\} \cap \{X/Y < x\}\}\\
+                &=\{\{Y > 0\} \cap \{X - xY < 0\}\} \cup \{\{Y < 0\} \cap \{X - xY < 0\}\} \in \mathcal{A}\\
+            \end{align*}
+            \item $max\{X, Y\}が確率変数であることを示す$\\
+            \begin{align*}
+                &max\{X, Y\} = Z, \, I=(a, b], \, (a, b \in \mathbb{R}, a < b)\\
+                &\{Z \in I\} = \{a < max\{X, Y\} \leq b\}\\
+                &=\{\{a < X \leq b\} \cap \{Y \leq b\}\} \cup \{\{a < Y \leq b\} \cap \{X \leq b\}\} \in \mathcal{A}\\
+            \end{align*}
+            \item $min\{X, Y\}が確率変数であることを示す$\\
+            \begin{align*}
+                &min\{X, Y\} = Z, \, I=(a, b], \, (a, b \in \mathbb{R}, a < b)\\
+                &\{Z \in I\} = \{a < min\{X, Y\} \leq b\}\\
+                &=\{\{a < X \leq b\} \cap \{a \leq Y\}\} \cup \{\{a < Y \leq b\} \cap \{b \leq X\}\} \in \mathcal{A}\\
+            \end{align*}
+        \end{enumerate}
+    \end{proof}
+\end{document}
+%本文ここまで=========================================================

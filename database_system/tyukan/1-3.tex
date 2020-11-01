@@ -1,0 +1,68 @@
+\synctex=1
+\documentclass[dvipdfmx,10pt, a4j]{jarticle}
+%----------------------------------------------------------
+%パッケージ読み込み
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm} %定理環境の拡張
+\usepackage{ascmac}
+\usepackage{bm}
+\usepackage{cases}
+\usepackage{comment} %非表示にするためのコメント
+\usepackage{enumerate}
+\usepackage{float} %画像をその場に表示．[h]の代わりに[H]
+\usepackage{graphicx} % eps 形式の図版取り込みのため
+\usepackage{mathrsfs}
+\usepackage{url}
+\usepackage[dvipdfmx]{hyperref}
+%----------------------------------------------------------
+
+%----------------------------------------------------------
+%命題関係の定義
+\theoremstyle{definition}
+\newtheorem{definition}{定義}[section]
+\newtheorem{theorem}{定理}[section]
+\newtheorem{proposition}[theorem]{命題}
+\newtheorem{lemma}[theorem]{補題}
+\newtheorem{col}[theorem]{系}
+\newtheorem{example}{例}[section]
+\newtheorem{remark}{注意}[section]
+%----------------------------------------------------------
+
+%タイトル・著者===================================================
+\title{データベースシステム 中間確認1-3}
+\author{1108190116 \, 小森 一輝}
+%=================================================================
+
+%本文開始=========================================================
+\begin{document}
+
+    \maketitle
+
+%カウンタ--------------------------------------------------
+    \setcounter{section}{2}
+%\setcounter{subsection}{0}
+%\setcounter{subsubsection}{0}
+%\setcounter{theorem}{0}
+%----------------------------------------------------------問1
+    \noindent
+    \textbf{中間確認1-3} $(\forall_x)((f(x)\; OR\; (\exists_x)(f(x)\; IMP\; g(x))\; IMP\; f(x)\; OR\; (\exists_x)(g(x)\; IMP\; NOT\; g(y))))$\\
+    \begin{align*}
+        &(\forall_x)(f(x)\; OR\; (\exists_x)((f(x)\; IMP\; g(x))\; IMP\; f(x)\; OR\; (\exists_x)(g(x)\; IMP\; NOT\; f(x))))\\
+        &= (\forall_x)(f(x)\; OR\; (\exists_x)((f(x)\; IMP\; g(x))\; IMP\; f(x)\; OR\; (\exists_x)(NOT\; g(x)\; OR\; NOT\; g(y))))\\
+        &= (\forall_x)(f(x)\; OR\; (\exists_x)((f(x)\; IMP\; g(x))\; IMP\; f(x)\; OR\; (\exists_x)(NOT\; g(x)\; OR\; NOT\; g(y))))\\
+        &= (\forall_x)(f(x)\; OR\; (\exists_x)((f(x)\; IMP\; g(x))\; IMP\; f(x)\; OR\; (NOT\; (\exists_x)\; (g(x))\; OR\; NOT\; (\exists_x)\; (g(y))))) \\ &\qquad (\because 述語論理式の基本公式)\\
+        &= (\forall_x)(f(x)\; OR\; (\exists_x)((NOT\; f(x)\; OR\; g(x))\; IMP\; f(x)\; OR\; (NOT\; (\exists_x)\; (g(x))\; OR\; NOT\; (\exists_x)\; (g(y))))) \\
+        &= (\forall_x)(f(x)\; OR\; (\exists_x)(NOT(NOT\; f(x)\; OR\; g(x))\; OR\; f(x)\; OR\; (NOT\; (\exists_x)\; (g(x))\; OR\; NOT\; (\exists_x)\; (g(y)))))\\ 
+        &= (\forall_x)(f(x)\; OR\; (\exists_x)(NOT(NOT\; f(x))\; AND\; NOT\; g(x)\; OR\; f(x)\; OR\; (NOT\; (\exists_x)\; (g(x))\; OR\; NOT\; (\exists_x)\; (g(y)))))\\ &\qquad (\because ド・モルガンの公式)\\
+        &= (\forall_x)(f(x)\; OR\; (\exists_x)(f(x)\; AND\; NOT\; g(x)\; OR\; f(x)\; OR\; NOT\; (\exists_x)\; (g(x))\; OR\; NOT\; (\exists_x)\; (g(y))))\\ &\qquad (\because 二重否定)\\
+        &= (\forall_x)(f(x)\; OR\; (\exists_x)(f(x)\; AND\; NOT\; g(x)\; OR\; f(x)\; OR\; NOT\; (\exists_x)\; (g(x))\; OR\; NOT\; (\exists_x)\; (g(x))))\\ &\qquad (\because 述語論理式の基本公式)\\
+        &= (\forall_x)(f(x)\; OR\; (\exists_x)(f(x)\; AND\; NOT\; g(x)\; OR\; f(x)\; OR\; NOT\; (\exists_x)\; (g(x))))\\ &\qquad (\because 同一律)\\
+        &= (\forall_x)(f(x)\; OR\; (\exists_x)(f(x)\; AND\; NOT\; g(x)\; OR\; NOT\; (\exists_x)\; (g(x))))\\ &\qquad (\because 同一律)\\
+        &= (\forall_x)(f(x)\; OR\; (\exists_x)(f(x)\; AND\; NOT\; g(x)))\\ &\qquad (\because 同一律)\\
+        &= (\forall_x)(f(x)\; OR\; (\forall_x)(f(x))\; AND\; NOT\;(\forall_x)(g(x)) \qquad (\because 述語論理式の基本公式)\\
+        &= (\forall_x)(f(x)\; AND\; NOT\;(\forall_x)(g(x)) \qquad (\because 同一律)\\
+        &= (\forall_x)(f(x)\; AND\; NOT\; g(x))\\
+    \end{align*}
+    \end{document}
+%本文ここまで=========================================================

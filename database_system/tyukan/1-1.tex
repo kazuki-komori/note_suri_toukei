@@ -1,0 +1,67 @@
+\synctex=1
+\documentclass[dvipdfmx,10pt, a4j]{jarticle}
+%----------------------------------------------------------
+%パッケージ読み込み
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm} %定理環境の拡張
+\usepackage{ascmac}
+\usepackage{bm}
+\usepackage{cases}
+\usepackage{comment} %非表示にするためのコメント
+\usepackage{enumerate}
+\usepackage{float} %画像をその場に表示．[h]の代わりに[H]
+\usepackage{graphicx} % eps 形式の図版取り込みのため
+\usepackage{mathrsfs}
+\usepackage{url}
+\usepackage[dvipdfmx]{hyperref}
+%----------------------------------------------------------
+
+%----------------------------------------------------------
+%命題関係の定義
+\theoremstyle{definition}
+\newtheorem{definition}{定義}[section]
+\newtheorem{theorem}{定理}[section]
+\newtheorem{proposition}[theorem]{命題}
+\newtheorem{lemma}[theorem]{補題}
+\newtheorem{col}[theorem]{系}
+\newtheorem{example}{例}[section]
+\newtheorem{remark}{注意}[section]
+%----------------------------------------------------------
+
+%タイトル・著者===================================================
+\title{データベースシステム 中間確認1-1}
+\author{1108190116 \, 小森 一輝}
+%=================================================================
+
+%本文開始=========================================================
+\begin{document}
+
+    \maketitle
+
+%カウンタ--------------------------------------------------
+    \setcounter{section}{2}
+%\setcounter{subsection}{0}
+%\setcounter{subsubsection}{0}
+%\setcounter{theorem}{0}
+%----------------------------------------------------------問1
+    \noindent
+    \textbf{中間確認1-1} $NOT\; (A\; IMP\; B)\; OR\; (B\; IMP\; C)\; OR\; (A\; IMP\; C)\; OR\; (A\; IMP\; B\; IMP\; C)$\\
+    \begin{align*}
+        (与式) &= NOT\; (A\; IMP\; B)\; OR\; (B\; IMP\; C)\; OR\; (A\; IMP\; C)\; OR\; (A\; IMP\; (B\; IMP\; C)) \qquad (\because IMPの結合則) \\
+        &= NOT\; (A\; IMP\; B)\; OR\; (B\; IMP\; C)\; OR\; (A\; IMP\; C)\; OR\; (A\; IMP\; (NOT\; B\; OR\; C))\\
+        &= NOT\; (A\; IMP\; B)\; OR\; (B\; IMP\; C)\; OR\; (A\; IMP\; C)\; OR\; (NOT\; A\; OR\; (NOT\; B\; OR\; C))\\
+        &= NOT\; (NOT\; A\; OR\; B)\; OR\; (B\; IMP\; C)\; OR\; (A\; IMP\; C)\; OR\; (NOT\; A\; OR\; NOT\; B\; OR\; C)\\
+        &= NOT\; (NOT\; A\; OR\; B)\; OR\; (NOT\; B\; OR\; C)\; OR\; (A\; IMP\; C)\; OR\; (NOT\; A\; OR\; NOT\; B\; OR\; C)\\
+        &= NOT\; (NOT\; A\; OR\; B)\; OR\; (NOT\; B\; OR\; C)\; OR\; (NOT\; A\; OR\; C)\; OR\; (NOT\; A\; OR\; NOT\; B\; OR\; C)\\
+        & ド・モルガン則より\\
+        &= NOT (NOT\; A)\; AND\; NOT\; B\; OR\; (NOT\; B\; OR\; C)\; OR\; (NOT\; A\; OR\; C)\; OR\; (NOT\; A\; OR\; NOT\; B\; OR\; C)\\
+        & 二重否定より\\
+        &= A\; AND\; (NOT\; B)\; OR\; (NOT\; B)\; OR\; C\; OR\; NOT\; A\; OR\; C\; OR\; NOT\; A\; OR\; (NOT\; B)\; OR\; C\\
+        &= A\; AND\; NOT\; B\; (OR\; C)\; OR\; NOT\; A\; (OR\; C)\; OR\; NOT\; A\; (OR\; C) \qquad (\because 同一律)\\
+        &= A\; AND\; NOT\; B\; OR\; C\; OR\; (NOT\; A)\; OR\; (NOT\; A) \qquad (\because 同一律)\\
+        &= A\; AND\; NOT\; B\; OR\; C\; OR\; NOT\; A \qquad (\because 同一律)\\
+        &= A\; AND\; NOT\; B\; OR\; NOT\; A\; OR\; C \qquad (\because 交換則)\\
+    \end{align*}
+    \end{document}
+%本文ここまで=========================================================

@@ -1,0 +1,577 @@
+\synctex=1
+\documentclass[dvipdfmx,10pt, a4j]{jarticle}
+%----------------------------------------------------------
+%パッケージ読み込み
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm} %定理環境の拡張
+\usepackage{ascmac}
+\usepackage{bm}
+\usepackage{cases}
+\usepackage{comment} %非表示にするためのコメント
+\usepackage{enumerate}
+\usepackage{float} %画像をその場に表示．[h]の代わりに[H]
+\usepackage{graphicx} % eps 形式の図版取り込みのため
+\usepackage{mathrsfs}
+\usepackage{url}
+\usepackage[dvipdfmx]{hyperref}
+%----------------------------------------------------------
+
+%----------------------------------------------------------
+%命題関係の定義
+\theoremstyle{definition}
+\newtheorem{definition}{定義}[section]
+\newtheorem{theorem}{定理}[section]
+\newtheorem{proposition}[theorem]{命題}
+\newtheorem{lemma}[theorem]{補題}
+\newtheorem{col}[theorem]{系}
+\newtheorem{example}{例}[section]
+\newtheorem{remark}{注意}[section]
+%----------------------------------------------------------
+
+%タイトル・著者===================================================
+\title{データベースシステム 中間レポート}
+\author{1108190116 \, 小森 一輝}
+%=================================================================
+
+%本文開始=========================================================
+\begin{document}
+
+    \maketitle
+
+%カウンタ--------------------------------------------------
+    \setcounter{section}{2}
+%\setcounter{subsection}{0}
+%\setcounter{subsubsection}{0}
+%\setcounter{theorem}{0}
+%----------------------------------------------------------中間確認1-1
+    \noindent
+    \textbf{中間確認1-1} $NOT\; (A\; IMP\; B)\; OR\; (B\; IMP\; C)\; OR\; (A\; IMP\; C)\; OR\; (A\; IMP\; B\; IMP\; C)$\\
+    \begin{align*}
+        (与式) &= NOT\; (A\; IMP\; B)\; OR\; (B\; IMP\; C)\; OR\; (A\; IMP\; C)\; OR\; (A\; IMP\; (B\; IMP\; C)) \qquad (\because IMPの結合則) \\
+        &= NOT\; (A\; IMP\; B)\; OR\; (B\; IMP\; C)\; OR\; (A\; IMP\; C)\; OR\; (A\; IMP\; (NOT\; B\; OR\; C))\\
+        &= NOT\; (A\; IMP\; B)\; OR\; (B\; IMP\; C)\; OR\; (A\; IMP\; C)\; OR\; (NOT\; A\; OR\; (NOT\; B\; OR\; C))\\
+        &= NOT\; (NOT\; A\; OR\; B)\; OR\; (B\; IMP\; C)\; OR\; (A\; IMP\; C)\; OR\; (NOT\; A\; OR\; NOT\; B\; OR\; C)\\
+        &= NOT\; (NOT\; A\; OR\; B)\; OR\; (NOT\; B\; OR\; C)\; OR\; (A\; IMP\; C)\; OR\; (NOT\; A\; OR\; NOT\; B\; OR\; C)\\
+        &= NOT\; (NOT\; A\; OR\; B)\; OR\; (NOT\; B\; OR\; C)\; OR\; (NOT\; A\; OR\; C)\; OR\; (NOT\; A\; OR\; NOT\; B\; OR\; C)\\
+        & ド・モルガン則より\\
+        &= NOT (NOT\; A)\; AND\; NOT\; B\; OR\; (NOT\; B\; OR\; C)\; OR\; (NOT\; A\; OR\; C)\; OR\; (NOT\; A\; OR\; NOT\; B\; OR\; C)\\
+        & 二重否定より\\
+        &= A\; AND\; (NOT\; B)\; OR\; (NOT\; B)\; OR\; C\; OR\; NOT\; A\; OR\; C\; OR\; NOT\; A\; OR\; (NOT\; B)\; OR\; C\\
+        &= A\; AND\; NOT\; B\; (OR\; C)\; OR\; NOT\; A\; (OR\; C)\; OR\; NOT\; A\; (OR\; C) \qquad (\because 同一律)\\
+        &= A\; AND\; NOT\; B\; OR\; C\; OR\; (NOT\; A)\; OR\; (NOT\; A) \qquad (\because 同一律)\\
+        &= A\; AND\; NOT\; B\; OR\; C\; OR\; NOT\; A \qquad (\because 同一律)\\
+        &= A\; AND\; NOT\; B\; OR\; NOT\; A\; OR\; C \qquad (\because 交換則)\\
+    \end{align*}
+
+%----------------------------------------------------------中間確認1-2
+    \newpage
+    \noindent
+    \textbf{中間確認1-2}\\
+    
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        A & B & C & D & X,Y\\
+        \hline
+        \hline
+        T & T & T & T & F\\
+        \hline
+        F & T & T & T & T\\
+        \hline
+        T & F & T & T & F\\
+        \hline
+        T & T & F & T & F\\
+        \hline
+        T & T & T & F & T\\
+        \hline
+        F & F & T & T & F\\
+        \hline
+        F & T & F & T & F\\
+        \hline
+        F & T & T & F & T\\
+        \hline
+        T & F & F & T & T\\
+        \hline
+        T & F & T & F & F\\
+        \hline
+        T & T & F & F & F\\
+        \hline
+        F & F & F & T & T\\
+        \hline
+        F & F & T & F & T\\
+        \hline
+        F & T & F & F & F\\
+        \hline
+        T & F & F & F & T\\
+        \hline
+        F & F & F & F & T\\
+        \hline
+    \end{tabular}\\
+    \begin{enumerate}[i)]
+        \item 積和標準形\\
+        X = Tは2, 5, 8, 9, 12, 13, 15, 16 行目であるからそれぞれについて, 命題変数PがTならP, FならNOT \; Pとし, それらをANDでつなぎ,各論理式をORでつなぐ\\
+        \begin{align*}
+            X = &NOT\; A\; AND\; B\; AND\; C\; AND\; D\; OR\\
+            &A\; AND\; B\; AND\; C\; AND\; NOT\; D\; OR\\
+            &NOT\; A\; AND\; B\; AND\; C\; AND\; NOT\; D\; OR\\
+            &A\; AND\; NOT\; B\; AND\; NOT\; C\; AND\; D\; OR\\
+            &NOT\; A\; AND\; NOT\; B\; AND\; NOT\; C\; AND\; D\; OR\\
+            &NOT\; A\; AND\; NOT\; B\; AND\; C\; AND\; NOT\; D\; OR\\
+            &A\; AND\; NOT\; B\; AND\; NOT\; C\; AND\; NOT\; D\; OR\\
+            &NOT\; A\; AND\; NOT\; B\; AND\; NOT\; C\; AND\; NOT\; D\\
+        \end{align*}
+        \item 和積標準形\\
+        Y = Fは1, 3, 4, 6, 7, 10, 11, 14 行目であるからそれぞれについて, 命題変数PがTならNOT \; P, Fなら Pとし, それらをORでつなぎ,各論理式をANDでつなぐ\\
+        \begin{align*}
+            Y = & (NOT\; A\; OR\; NOT\; B\; OR\; NOT\; C\; OR\; NOT\; D) \; AND\\
+            & (NOT\; A\; OR\; B\; OR\; NOT\; C\; OR\; NOT\; D)\; AND\\
+            & (NOT\; A\; OR\; NOT\; B\; OR\; C\; OR\; NOT\; D)\; AND\\
+            & (A\; OR\; B\; OR\; NOT\; C\; OR\; NOT\; D)\; AND\\
+            & (A\; OR\; NOT\; B\; OR\; C\; OR\; NOT\; D)\; AND\\
+            & (NOT\; A\; OR\; B\; OR\; NOT\; C\; OR\; D)\; AND\\
+            & (NOT\; A\; OR\; NOT\; B\; OR\; C\; OR\; D)\; AND\\
+            & (A\; OR\; NOT\; B\; OR\; C\; OR\; D)\\
+        \end{align*}
+        \item X = Yを示す\\
+        \begin{enumerate}[1)]
+            \item 1行目 : A=T, B=T, C=T, D=T を代入\\
+            \begin{align*}
+                X = &F\; AND\; T\; AND\; T\; AND\; T\; OR\\
+                &T\; AND\; T\; AND\; T\; AND\; F\; OR\\
+                &F\; AND\; T\; AND\; T\; AND\; F\; OR\\
+                &T\; AND\; F\; AND\; F\; AND\; T\; OR\\
+                &F\; AND\; F\; AND\; F\; AND\; T\; OR\\
+                &F\; AND\; F\; AND\; T\; AND\; F\; OR\\
+                &T\; AND\; F\; AND\; F\; AND\; F\; OR\\
+                &F\; AND\; F\; AND\; F\; AND\; F\\
+                &= F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\\
+                &= F\\
+            \end{align*}
+            \begin{align*}
+                Y = & (F\; OR\; F\; OR\; F\; OR\; F) \; AND\\
+                & (F\; OR\; T\; OR\; F\; OR\; F)\; AND\\
+                & (F\; OR\; F\; OR\; T\; OR\; F)\; AND\\
+                & (T\; OR\; T\; OR\; F\; OR\; F)\; AND\\
+                & (T\; OR\; F\; OR\; T\; OR\; F)\; AND\\
+                & (F\; OR\; T\; OR\; F\; OR\; T)\; AND\\
+                & (F\; OR\; F\; OR\; T\; OR\; T)\; AND\\
+                & (T\; OR\; F\; OR\; T\; OR\; T)\\
+                &= F\; AND\; T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\\
+                &= F\\
+            \end{align*}
+            \item 2行目 : A=F, B=T, C=T, D=T を代入\\
+            \begin{align*}
+                X = &T\; AND\; T\; AND\; T\; AND\; T\; OR\\
+                &F\; AND\; T\; AND\; T\; AND\; F\; OR\\
+                &T\; AND\; T\; AND\; T\; AND\; F\; OR\\
+                &F\; AND\; F\; AND\; F\; AND\; T\; OR\\
+                &T\; AND\; F\; AND\; F\; AND\; T\; OR\\
+                &T\; AND\; F\; AND\; T\; AND\; F\; OR\\
+                &F\; AND\; F\; AND\; F\; AND\; F\; OR\\
+                &T\; AND\; F\; AND\; F\; AND\; F\\
+                &= T\; OR\; F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\\
+                &= T\\
+            \end{align*}
+            \begin{align*}
+                Y = & (T\; OR\; F\; OR\; F\; OR\; F\;) \; AND\\
+                & (T\; OR\; T\; OR\; F\; OR\; F\;)\; AND\\
+                & (T\; OR\; F\; OR\; T\; OR\; F\;)\; AND\\
+                & (F OR\; T\; OR\; F\; OR\; F\;)\; AND\\
+                & (F OR\; F\; OR\; T\; OR\; F\;)\; AND\\
+                & (T\; OR\; T\; OR\; F\; OR\; T)\; AND\\
+                & (T\; OR\; F\; OR\; T\; OR\; T)\; AND\\
+                & (F OR\; F\; OR\; T\; OR\; T)\\
+                &= T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\\
+                &= T\\
+            \end{align*}
+            \item 3行目 : A=T, B=F, C=T, D=T を代入\\
+            \begin{align*}
+                X = &F\; AND\; F\; AND\; T\; AND\; T\; OR\\
+                &T\; AND\; F\; AND\; T\; AND\; F\; OR\\
+                &F\; AND\; F\; AND\; T\; AND\; F\; OR\\
+                &T\; AND\; T\; AND\; F\; AND\; T\; OR\\
+                &F\; AND\; T\; AND\; F\; AND\; T\; OR\\
+                &F\; AND\; T\; AND\; T\; AND\; F\; OR\\
+                &T\; AND\; T\; AND\; F\; AND\; F\; OR\\
+                &F\; AND\; T\; AND\; F\; AND\; F\\
+                &= F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\\
+                &= F\\
+            \end{align*}
+            \begin{align*}
+                Y = & (F\; OR\; T\; OR\; F\; OR\; F)\; AND\\
+                & (F\; OR\; F\; OR\; F\; OR\; F)\; AND\\
+                & (F\; OR\; T\; OR\; T\; OR\; F)\; AND\\
+                & (T\; OR\; F\; OR\; F\; OR\; F)\; AND\\
+                & (T\; OR\; T\; OR\; T\; OR\; F)\; AND\\
+                & (F\; OR\; F\; OR\; F\; OR\; T)\; AND\\
+                & (F\; OR\; T\; OR\; T\; OR\; T)\; AND\\
+                & (T\; OR\; T\; OR\; T\; OR\; T)\\
+                &= T\; AND\; F\; AND\; T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\\
+                &= F\\
+            \end{align*}
+            \item 4行目 : A=T, B=T, C=F, D=T を代入\\
+            \begin{align*}
+                X = &F\; AND\; T\; AND\; F\; AND\; T\; OR\\
+                &T\; AND\; T\; AND\; F\; AND\; F\; OR\\
+                &F\; AND\; T\; AND\; F\; AND\; F\; OR\\
+                &T\; AND\; F\; AND\; T\; AND\; T\; OR\\
+                &F\; AND\; F\; AND\; T\; AND\; T\; OR\\
+                &F\; AND\; F\; AND\; F\; AND\; F\; OR\\
+                &T\; AND\; F\; AND\; T\; AND\; F\; OR\\
+                &F\; AND\; F\; AND\; T\; AND\; F\\
+                &= F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\\
+                &= F\\
+            \end{align*}
+            \begin{align*}
+                Y = & (F\; OR\; F\; OR\; T\; OR\; F)\; AND\\
+                & (F\; OR\; T\; OR\; T\; OR\; F)\; AND\\
+                & (F\; OR\; F\; OR\; F\; OR\; F)\; AND\\
+                & (T\; OR\; T\; OR\; T\; OR\; F)\; AND\\
+                & (T\; OR\; F\; OR\; F\; OR\; F)\; AND\\
+                & (F\; OR\; T\; OR\; T\; OR\; T)\; AND\\
+                & (F\; OR\; F\; OR\; F\; OR\; T)\; AND\\
+                & (T\; OR\; F\; OR\; F\; OR\; T)\\
+                &= T\; AND\; T\; AND\; F\; AND\; T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\\
+                &= F\\
+            \end{align*}
+            \item 5行目 : A=T, B=T, C=T, D=F を代入\\
+            \begin{align*}
+                X = &F\; AND\; T\; AND\; T\; AND\; F\; OR\\
+                &T\; AND\; T\; AND\; T\; AND\; T\; OR\\
+                &F\; AND\; T\; AND\; T\; AND\; T\; OR\\
+                &T\; AND\; F\; AND\; F\; AND\; F\; OR\\
+                &F\; AND\; F\; AND\; F\; AND\; F\; OR\\
+                &F\; AND\; F\; AND\; T\; AND\; T\; OR\\
+                &T\; AND\; F\; AND\; F\; AND\; T\; OR\\
+                &F\; AND\; F\; AND\; F\; AND\; T\\
+                &= F\; OR\; T\; OR\; F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\\
+                &= T\\
+            \end{align*}
+            \begin{align*}
+                Y = & (F\; OR\; F\; OR\; F\; OR\; T) \; AND\\
+                & (F\; OR\; T\; OR\; F\; OR\; T)\; AND\\
+                & (F\; OR\; F\; OR\; T\; OR\; T)\; AND\\
+                & (T\; OR\; T\; OR\; F\; OR\; T)\; AND\\
+                & (T\; OR\; F\; OR\; T\; OR\; T)\; AND\\
+                & (F\; OR\; T\; OR\; F\; OR\; F)\; AND\\
+                & (F\; OR\; F\; OR\; T\; OR\; F)\; AND\\
+                & (T\; OR\; F\; OR\; T\; OR\; F)\\
+                &= T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\\
+                &= T\\
+            \end{align*}
+            \item 6行目 : A=F, B=F, C=T, D=T を代入\\
+            \begin{align*}
+                X = &T\; AND\; F\; AND\; T\; AND\; T\; OR\\
+                &F\; AND\; F\; AND\; T\; AND\; F\; OR\\
+                &T\; AND\; F\; AND\; T\; AND\; F\; OR\\
+                &F\; AND\; T\; AND\; F\; AND\; T\; OR\\
+                &T\; AND\; T\; AND\; F\; AND\; T\; OR\\
+                &T\; AND\; T\; AND\; T\; AND\; F\; OR\\
+                &F\; AND\; T\; AND\; F\; AND\; F\; OR\\
+                &T\; AND\; T\; AND\; F\; AND\; F\\
+                &= F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\\
+                &= F\\
+            \end{align*}
+            \begin{align*}
+                Y = & (T\; OR\; T\; OR\; F\; OR\; F) \; AND\\
+                & (T\; OR\; F\; OR\; F\; OR\; F)\; AND\\
+                & (T\; OR\; T\; OR\; T\; OR\; F)\; AND\\
+                & (F\; OR\; F\; OR\; F\; OR\; F)\; AND\\
+                & (F\; OR\; T\; OR\; T\; OR\; F)\; AND\\
+                & (T\; OR\; F\; OR\; F\; OR\; T)\; AND\\
+                & (T\; OR\; T\; OR\; T\; OR\; T)\; AND\\
+                & (F\; OR\; T\; OR\; T\; OR\; T)\\
+                &= T\; AND\; T\; AND\; T\; AND\; F\; AND\; T\; AND\; T\; AND\; T\; AND\; T\\
+                &= F\\
+            \end{align*}
+            \item 7行目 : A=F, B=T, C=F, D=T を代入\\
+            \begin{align*}
+                X = &T\; AND\; T\; AND\; F\; AND\; T\; OR\\
+                &F\; AND\; T\; AND\; F\; AND\; F\; OR\\
+                &T\; AND\; T\; AND\; F\; AND\; F\; OR\\
+                &F\; AND\; F\; AND\; T\; AND\; T\; OR\\
+                &T\; AND\; F\; AND\; T\; AND\; T\; OR\\
+                &T\; AND\; F\; AND\; F\; AND\; F\; OR\\
+                &F\; AND\; F\; AND\; T\; AND\; F\; OR\\
+                &T\; AND\; F\; AND\; T\; AND\; F\\
+                &= F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\\
+                &= F\\
+            \end{align*}
+            \begin{align*}
+                Y = & (T\; OR\; F\; OR\; T\; OR\; F) \; AND\\
+                & (T\; OR\; T\; OR\; T\; OR\; F)\; AND\\
+                & (T\; OR\; F\; OR\; F\; OR\; F)\; AND\\
+                & (F\; OR\; T\; OR\; T\; OR\; F)\; AND\\
+                & (F\; OR\; F\; OR\; F\; OR\; F)\; AND\\
+                & (T\; OR\; T\; OR\; T\; OR\; T)\; AND\\
+                & (T\; OR\; F\; OR\; F\; OR\; T)\; AND\\
+                & (F\; OR\; F\; OR\; F\; OR\; T)\\
+                &= T\; AND\; T\; AND\; T\; AND\; T\; AND\; F\; AND\; T\; AND\; T\; AND\; T\\
+                &= F\\
+            \end{align*}
+            \item 8行目 : A=F, B=T, C=T, D=F を代入\\
+            \begin{align*}
+                X = &T\; AND\; T\; AND\; T\; AND\; F\; OR\\
+                &F\; AND\; T\; AND\; T\; AND\; T\; OR\\
+                &T\; AND\; T\; AND\; T\; AND\; T\; OR\\
+                &F\; AND\; F\; AND\; F\; AND\; F\; OR\\
+                &T\; AND\; F\; AND\; F\; AND\; F\; OR\\
+                &T\; AND\; F\; AND\; T\; AND\; T\; OR\\
+                &F\; AND\; F\; AND\; F\; AND\; T\; OR\\
+                &T\; AND\; F\; AND\; F\; AND\; T\\
+                &= F\; OR\; F\; OR\; T\; OR\; F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\\
+                &= T\\
+            \end{align*}
+            \begin{align*}
+                Y = & (T\; OR\; F\; OR\; F\; OR\; T) \; AND\\
+                & (T\; OR\; T\; OR\; F\; OR\; T)\; AND\\
+                & (T\; OR\; F\; OR\; T\; OR\; T)\; AND\\
+                & (F\; OR\; T\; OR\; F\; OR\; T)\; AND\\
+                & (F\; OR\; F\; OR\; T\; OR\; T)\; AND\\
+                & (T\; OR\; T\; OR\; F\; OR\; F)\; AND\\
+                & (T\; OR\; F\; OR\; T\; OR\; F)\; AND\\
+                & (F\; OR\; F\; OR\; T\; OR\; F)\\
+                &= T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\\
+                &= T\\
+            \end{align*}
+            \item 9行目 : A=T, B=F, C=F, D=T を代入\\
+            \begin{align*}
+                X = &F\; AND\; F\; AND\; F\; AND\; T\; OR\\
+                &T\; AND\; F\; AND\; F\; AND\; F\; OR\\
+                &F\; AND\; F\; AND\; F\; AND\; F\; OR\\
+                &T\; AND\; T\; AND\; T\; AND\; T\; OR\\
+                &F\; AND\; T\; AND\; T\; AND\; T\; OR\\
+                &F\; AND\; T\; AND\; F\; AND\; F\; OR\\
+                &T\; AND\; T\; AND\; T\; AND\; F\; OR\\
+                &F\; AND\; T\; AND\; T\; AND\; F\\
+                &= F\; OR\; F\; OR\; F\; OR\; T\; OR\; F\; OR\; F\; OR\; F\; OR\; F\\
+                &= T\\
+            \end{align*}
+            \begin{align*}
+                Y = & (F\; OR\; T\; OR\; T\; OR\; F) \; AND\\
+                & (F\; OR\; F\; OR\; T\; OR\; F)\; AND\\
+                & (F\; OR\; T\; OR\; F\; OR\; F)\; AND\\
+                & (T\; OR\; F\; OR\; T\; OR\; F)\; AND\\
+                & (T\; OR\; T\; OR\; F\; OR\; F)\; AND\\
+                & (F\; OR\; F\; OR\; T\; OR\; T)\; AND\\
+                & (F\; OR\; T\; OR\; F\; OR\; T)\; AND\\
+                & (T\; OR\; T\; OR\; F\; OR\; T)\\
+                &= T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\\
+                &= T\\
+            \end{align*}
+            \item 10行目 : A=T, B=F, C=T, D=F を代入\\
+            \begin{align*}
+                X = &F\; AND\; F\; AND\; T\; AND\; F\; OR\\
+                &T\; AND\; F\; AND\; T\; AND\; T\; OR\\
+                &F\; AND\; F\; AND\; T\; AND\; T\; OR\\
+                &T\; AND\; T\; AND\; F\; AND\; F\; OR\\
+                &F\; AND\; T\; AND\; F\; AND\; F\; OR\\
+                &F\; AND\; T\; AND\; T\; AND\; T\; OR\\
+                &T\; AND\; T\; AND\; F\; AND\; T\; OR\\
+                &F\; AND\; T\; AND\; F\; AND\; T\\
+                &= F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\\
+                &= F\\
+            \end{align*}
+            \begin{align*}
+                Y = & (F\; OR\; T\; OR\; F\; OR\; T) \; AND\\
+                & (F\; OR\; F\; OR\; F\; OR\; T)\; AND\\
+                & (F\; OR\; T\; OR\; T\; OR\; T)\; AND\\
+                & (T\; OR\; F\; OR\; F\; OR\; T)\; AND\\
+                & (T\; OR\; T\; OR\; T\; OR\; T)\; AND\\
+                & (F\; OR\; F\; OR\; F\; OR\; F)\; AND\\
+                & (F\; OR\; T\; OR\; T\; OR\; F)\; AND\\
+                & (T\; OR\; T\; OR\; T\; OR\; F)\\
+                &= T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\; AND\; F\; AND\; T\; AND\; T\\
+                &= F\\
+            \end{align*}
+            \item 11行目 : A=T, B=T, C=F, D=F を代入\\
+            \begin{align*}
+                X = &F\; AND\; T\; AND\; F\; AND\; F\; OR\\
+                &T\; AND\; T\; AND\; F\; AND\; T\; OR\\
+                &F\; AND\; T\; AND\; F\; AND\; T\; OR\\
+                &T\; AND\; F\; AND\; T\; AND\; F\; OR\\
+                &F\; AND\; F\; AND\; T\; AND\; F\; OR\\
+                &F\; AND\; F\; AND\; F\; AND\; T\; OR\\
+                &T\; AND\; F\; AND\; T\; AND\; T\; OR\\
+                &F\; AND\; F\; AND\; T\; AND\; T\\
+                &= F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\\
+                &= F\\
+            \end{align*}
+            \begin{align*}
+                Y = & (F\; OR\; F\; OR\; T\; OR\; T) \; AND\\
+                & (F\; OR\; T\; OR\; T\; OR\; T)\; AND\\
+                & (F\; OR\; F\; OR\; F\; OR\; T)\; AND\\
+                & (T\; OR\; T\; OR\; T\; OR\; T)\; AND\\
+                & (T\; OR\; F\; OR\; F\; OR\; T)\; AND\\
+                & (F\; OR\; T\; OR\; T\; OR\; F)\; AND\\
+                & (F\; OR\; F\; OR\; F\; OR\; F)\; AND\\
+                & (T\; OR\; F\; OR\; F\; OR\; F)\\
+                &= T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\; AND\; F\; AND\; T\\
+                &= F\\
+            \end{align*}
+            \item 12行目 : A=F, B=F, C=F, D=T を代入\\
+            \begin{align*}
+                X = &T\; AND\; F\; AND\; F\; AND\; T\; OR\\
+                &F\; AND\; F\; AND\; F\; AND\; F\; OR\\
+                &T\; AND\; F\; AND\; F\; AND\; F\; OR\\
+                &F\; AND\; T\; AND\; T\; AND\; T\; OR\\
+                &T\; AND\; T\; AND\; T\; AND\; T\; OR\\
+                &T\; AND\; T\; AND\; F\; AND\; F\; OR\\
+                &F\; AND\; T\; AND\; T\; AND\; F\; OR\\
+                &T\; AND\; T\; AND\; T\; AND\; F\\
+                &= F\; OR\; F\; OR\; F\; OR\; F\; OR\; T\; OR\; F\; OR\; F\; OR\; F\\
+                &= T\\
+            \end{align*}
+            \begin{align*}
+                Y = & (T\; OR\; T\; OR\; T\; OR\; F) \; AND\\
+                & (T\; OR\; F\; OR\; T\; OR\; F)\; AND\\
+                & (T\; OR\; T\; OR\; F\; OR\; F)\; AND\\
+                & (F\; OR\; F\; OR\; T\; OR\; F)\; AND\\
+                & (F\; OR\; T\; OR\; F\; OR\; F)\; AND\\
+                & (T\; OR\; F\; OR\; T\; OR\; T)\; AND\\
+                & (T\; OR\; T\; OR\; F\; OR\; T)\; AND\\
+                & (F\; OR\; T\; OR\; F\; OR\; T)\\
+                &= T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\\
+                &= T\\
+            \end{align*}
+            \item 13行目 : A=F, B=F, C=T, D=F を代入\\
+            \begin{align*}
+                X = &T\; AND\; F\; AND\; T\; AND\; F\; OR\\
+                &F\; AND\; F\; AND\; T\; AND\; T\; OR\\
+                &T\; AND\; F\; AND\; T\; AND\; T\; OR\\
+                &F\; AND\; T\; AND\; F\; AND\; F\; OR\\
+                &T\; AND\; T\; AND\; F\; AND\; F\; OR\\
+                &T\; AND\; T\; AND\; T\; AND\; T\; OR\\
+                &F\; AND\; T\; AND\; F\; AND\; T\; OR\\
+                &T\; AND\; T\; AND\; F\; AND\; T\\
+                &= F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\; OR\; T\; OR\; F\; OR\; F\\
+                &= T\\
+            \end{align*}
+            \begin{align*}
+                Y = & (T\; OR\; T\; OR\; F\; OR\; T) \; AND\\
+                & (T\; OR\; F\; OR\; F\; OR\; T)\; AND\\
+                & (T\; OR\; T\; OR\; T\; OR\; T)\; AND\\
+                & (F\; OR\; F\; OR\; F\; OR\; T)\; AND\\
+                & (F\; OR\; T\; OR\; T\; OR\; T)\; AND\\
+                & (T\; OR\; F\; OR\; F\; OR\; F)\; AND\\
+                & (T\; OR\; T\; OR\; T\; OR\; F)\; AND\\
+                & (F\; OR\; T\; OR\; T\; OR\; F)\\
+                &= T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\\
+                &= T\\
+            \end{align*}
+            \item 14行目 : A=F, B=T, C=F, D=F を代入\\
+            \begin{align*}
+                X = &T\; AND\; T\; AND\; F\; AND\; F\; OR\\
+                &F\; AND\; T\; AND\; F\; AND\; T\; OR\\
+                &T\; AND\; T\; AND\; F\; AND\; T\; OR\\
+                &F\; AND\; F\; AND\; T\; AND\; F\; OR\\
+                &T\; AND\; F\; AND\; T\; AND\; F\; OR\\
+                &T\; AND\; F\; AND\; F\; AND\; T\; OR\\
+                &F\; AND\; F\; AND\; T\; AND\; T\; OR\\
+                &T\; AND\; F\; AND\; T\; AND\; T\\
+                &= F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\\
+                &= F\\
+            \end{align*}
+            \begin{align*}
+                Y = & (T\; OR\; F\; OR\; T\; OR\; T) \; AND\\
+                & (T\; OR\; T\; OR\; T\; OR\; T)\; AND\\
+                & (T\; OR\; F\; OR\; F\; OR\; T)\; AND\\
+                & (F\; OR\; T\; OR\; T\; OR\; T)\; AND\\
+                & (F\; OR\; F\; OR\; F\; OR\; T)\; AND\\
+                & (T\; OR\; T\; OR\; T\; OR\; F)\; AND\\
+                & (T\; OR\; F\; OR\; F\; OR\; F)\; AND\\
+                & (F\; OR\; F\; OR\; F\; OR\; F)\\
+                &= T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\; AND\; F\\
+                &= F\\
+            \end{align*}
+            \item 15行目 : A=T, B=F, C=F, D=F を代入\\
+            \begin{align*}
+                X = &F\; AND\; F\; AND\; F\; AND\; F\; OR\\
+                &T\; AND\; F\; AND\; F\; AND\; T\; OR\\
+                &F\; AND\; F\; AND\; F\; AND\; T\; OR\\
+                &T\; AND\; T\; AND\; T\; AND\; F\; OR\\
+                &F\; AND\; T\; AND\; T\; AND\; F\; OR\\
+                &F\; AND\; T\; AND\; F\; AND\; T\; OR\\
+                &T\; AND\; T\; AND\; T\; AND\; T\; OR\\
+                &F\; AND\; T\; AND\; T\; AND\; T\\
+                &= F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\; OR\; T\; OR\; F\\
+                &= T\\
+            \end{align*}
+            \begin{align*}
+                Y = & (F\; OR\; T\; OR\; T\; OR\; T) \; AND\\
+                & (F\; OR\; F\; OR\; T\; OR\; T)\; AND\\
+                & (F\; OR\; T\; OR\; F\; OR\; T)\; AND\\
+                & (T\; OR\; F\; OR\; T\; OR\; T)\; AND\\
+                & (T\; OR\; T\; OR\; F\; OR\; T)\; AND\\
+                & (F\; OR\; F\; OR\; T\; OR\; F)\; AND\\
+                & (F\; OR\; T\; OR\; F\; OR\; F)\; AND\\
+                & (T\; OR\; T\; OR\; F\; OR\; F)\\
+                &= T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\\
+                &= T\\
+            \end{align*}
+            \item 16行目 : A=F, B=F, C=F, D=F を代入\\
+            \begin{align*}
+                X = &T\; AND\; F\; AND\; F\; AND\; F\; OR\\
+                &F\; AND\; F\; AND\; F\; AND\; T\; OR\\
+                &T\; AND\; F\; AND\; F\; AND\; T\; OR\\
+                &F\; AND\; T\; AND\; T\; AND\; F\; OR\\
+                &T\; AND\; T\; AND\; T\; AND\; F\; OR\\
+                &T\; AND\; T\; AND\; F\; AND\; T\; OR\\
+                &F\; AND\; T\; AND\; T\; AND\; T\; OR\\
+                &T\; AND\; T\; AND\; T\; AND\; T\\
+                &= F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\; OR\; F\; OR\; T\\
+                &= T\\
+            \end{align*}
+            \begin{align*}
+                Y = & (T\; OR\; T\; OR\; T\; OR\; T) \; AND\\
+                & (T\; OR\; F\; OR\; T\; OR\; T)\; AND\\
+                & (T\; OR\; T\; OR\; F\; OR\; T)\; AND\\
+                & (F\; OR\; F\; OR\; T\; OR\; T)\; AND\\
+                & (F\; OR\; T\; OR\; F\; OR\; T)\; AND\\
+                & (T\; OR\; F\; OR\; T\; OR\; F)\; AND\\
+                & (T\; OR\; T\; OR\; F\; OR\; F)\; AND\\
+                & (F\; OR\; T\; OR\; F\; OR\; F)\\
+                &= T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\; AND\; T\\
+                &= T\\
+            \end{align*}
+        \end{enumerate}
+        以上(1) $\to$ (16)の結果より, X=Yが示された\\
+    \end{enumerate}
+    
+    %----------------------------------------------------------中間確認1-3
+    \newpage
+    \noindent
+    \textbf{中間確認1-3} $(\forall_x)((f(x)\; OR\; (\exists_x)(f(x)\; IMP\; g(x))\; IMP\; f(x)\; OR\; (\exists_x)(g(x)\; IMP\; NOT\; g(y))))$\\
+    \begin{align*}
+        &(\forall_x)(f(x)\; OR\; (\exists_x)((f(x)\; IMP\; g(x))\; IMP\; f(x)\; OR\; (\exists_x)(g(x)\; IMP\; NOT\; f(x))))\\
+        &= (\forall_x)(f(x)\; OR\; (\exists_x)((f(x)\; IMP\; g(x))\; IMP\; f(x)\; OR\; (\exists_x)(NOT\; g(x)\; OR\; NOT\; g(y))))\\
+        &= (\forall_x)(f(x)\; OR\; (\exists_x)((f(x)\; IMP\; g(x))\; IMP\; f(x)\; OR\; (\exists_x)(NOT\; g(x)\; OR\; NOT\; g(y))))\\
+        &= (\forall_x)(f(x)\; OR\; (\exists_x)((f(x)\; IMP\; g(x))\; IMP\; f(x)\; OR\; (NOT\; (\exists_x)\; (g(x))\; OR\; NOT\; (\exists_x)\; (g(y))))) \\ &\qquad (\because 述語論理式の基本公式)\\
+        &= (\forall_x)(f(x)\; OR\; (\exists_x)((NOT\; f(x)\; OR\; g(x))\; IMP\; f(x)\; OR\; (NOT\; (\exists_x)\; (g(x))\; OR\; NOT\; (\exists_x)\; (g(y))))) \\
+        &= (\forall_x)(f(x)\; OR\; (\exists_x)(NOT(NOT\; f(x)\; OR\; g(x))\; OR\; f(x)\; OR\; (NOT\; (\exists_x)\; (g(x))\; OR\; NOT\; (\exists_x)\; (g(y)))))\\ 
+        &= (\forall_x)(f(x)\; OR\; (\exists_x)(NOT(NOT\; f(x))\; AND\; NOT\; g(x)\; OR\; f(x)\; OR\; (NOT\; (\exists_x)\; (g(x))\; OR\; NOT\; (\exists_x)\; (g(y)))))\\ &\qquad (\because ド・モルガンの公式)\\
+        &= (\forall_x)(f(x)\; OR\; (\exists_x)(f(x)\; AND\; NOT\; g(x)\; OR\; f(x)\; OR\; NOT\; (\exists_x)\; (g(x))\; OR\; NOT\; (\exists_x)\; (g(y))))\\ &\qquad (\because 二重否定)\\
+        &= (\forall_x)(f(x)\; OR\; (\exists_x)(f(x)\; AND\; NOT\; g(x)\; OR\; f(x)\; OR\; NOT\; (\exists_x)\; (g(x))\; OR\; NOT\; (\exists_x)\; (g(x))))\\ &\qquad (\because 述語論理式の基本公式)\\
+        &= (\forall_x)(f(x)\; OR\; (\exists_x)(f(x)\; AND\; NOT\; g(x)\; OR\; f(x)\; OR\; NOT\; (\exists_x)\; (g(x))))\\ &\qquad (\because 同一律)\\
+        &= (\forall_x)(f(x)\; OR\; (\exists_x)(f(x)\; AND\; NOT\; g(x)\; OR\; NOT\; (\exists_x)\; (g(x))))\\ &\qquad (\because 同一律)\\
+        &= (\forall_x)(f(x)\; OR\; (\exists_x)(f(x)\; AND\; NOT\; g(x)))\\ &\qquad (\because 同一律)\\
+        &= (\forall_x)(f(x)\; OR\; (\forall_x)(f(x))\; AND\; NOT\;(\forall_x)(g(x)) \qquad (\because 述語論理式の基本公式)\\
+        &= (\forall_x)(f(x)\; AND\; NOT\;(\forall_x)(g(x)) \qquad (\because 同一律)\\
+        &= (\forall_x)(f(x)\; AND\; NOT\; g(x))\\
+    \end{align*}
+
+    %----------------------------------------------------------中間確認1-4
+    \newpage
+    \noindent
+    \textbf{中間確認1-4} $A \cap (A \cup B) \cap B \cap (B \cup C) \cap C \cap (C \cup A)$\\
+    \begin{align*}
+        &A \cap (A \cup B) \cap B \cap (B \cup C) \cap C \cap (C \cup A)\\
+        &=A \cup (A \cap B) \cap B \cap (B \cup C) \cap C \cap (C \cup A) \qquad (\because 分配則)\\
+        &=A \cup (A \cap B) \cap B \cup (B \cap C) \cap C \cap (C \cup A) \qquad (\because 分配則)\\
+        &=A \cup (A \cap B) \cap B \cup (B \cap C) \cap C \cup (C \cap A) \qquad (\because 分配則)\\
+        &=A \cap B \cup (B \cap C) \cap C \cup (C \cap A) \qquad (\because 吸収律)\\
+        &=A \cap B \cap C \cup (C \cap A) \qquad (\because 吸収律)\\
+        &=A \cap B \cap C \qquad (\because 吸収律)\\
+    \end{align*}
+\end{document}
+%本文ここまで=========================================================

@@ -1,0 +1,75 @@
+\synctex=1
+\documentclass[dvipdfmx,10pt, a4j]{jarticle}
+%----------------------------------------------------------
+%パッケージ読み込み
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm} %定理環境の拡張
+\usepackage{ascmac}
+\usepackage{bm}
+\usepackage{cases}
+\usepackage{comment} %非表示にするためのコメント
+\usepackage{enumerate}
+\usepackage{float} %画像をその場に表示．[h]の代わりに[H]
+\usepackage{graphicx} % eps 形式の図版取り込みのため
+\usepackage{mathrsfs}
+\usepackage{url}
+\usepackage[dvipdfmx]{hyperref}
+%----------------------------------------------------------
+
+%----------------------------------------------------------
+%命題関係の定義
+\theoremstyle{definition}
+\newtheorem{definition}{定義}[section]
+\newtheorem{theorem}{定理}[section]
+\newtheorem{proposition}[theorem]{命題}
+\newtheorem{lemma}[theorem]{補題}
+\newtheorem{col}[theorem]{系}
+\newtheorem{example}{例}[section]
+\newtheorem{remark}{注意}[section]
+%----------------------------------------------------------
+
+%タイトル・著者===================================================
+\title{第6回 データベースシステム 課題}
+\author{1108190116 \, 小森 一輝}
+%=================================================================
+
+%本文開始=========================================================
+\begin{document}
+
+\maketitle
+
+%カウンタ--------------------------------------------------
+\setcounter{section}{2}
+%\setcounter{subsection}{0}
+%\setcounter{subsubsection}{0}
+%\setcounter{theorem}{0}
+
+%----------------------------------------------------------定理2.8
+\noindent
+\textbf{課題} \\
+\begin{align*}
+    &主キー \dots \textbf{科目番号, 学籍番号}\\
+    &外部キー \dots \textbf{履修:\; 学籍番号, 履修:\; 科目番号}\\
+\end{align*}
+\begin{align*}
+    &与えられたデータより, それぞれの集合は以下のように表現することができる.\\
+    &学籍番号: \{20001, 20002, 20003\}\\
+    &学生名: \{杉下右京, 冠城亘, 小出茉梨\}\\
+    &科目番号: \{CIS01, CIS02\}\\
+    &科目名: \{情報アクセス技術, データベースシステム\}\\
+    &得点: \{60, 70, 80, 90\}\\
+\end{align*}
+\begin{align*}
+    &与えられたデータベースを以下のような形式で表現する.\\
+    &\{学籍番号, 学生名, 科目番号, 科目名, 得点\}\\
+    &\{20001, 杉下右京, CIS01, 情報アクセス技術, 60\}\\
+    &\{20002, 冠城亘, CIS01, 情報アクセス技術, 90\}\\
+    &\{20002, 冠城亘, CIS02, データベースシステム, 70\}\\
+    &\{20003, 小出茉梨, CIS02, データベースシステム, 80\}\\
+    &よって, 5項目の各集合, 計144通りの組み合わせの中に上記の項目が存在することがわかるから,\\
+    &このデータベースは各集合の直積集合の部分集合であることがわかる.\\
+\end{align*}
+
+\end{document}
+%本文ここまで=========================================================

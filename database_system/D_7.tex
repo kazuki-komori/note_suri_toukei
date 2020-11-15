@@ -1,0 +1,102 @@
+\synctex=1
+\documentclass[dvipdfmx,10pt, a4j]{jarticle}
+%----------------------------------------------------------
+%パッケージ読み込み
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm} %定理環境の拡張
+\usepackage{ascmac}
+\usepackage{bm}
+\usepackage{cases}
+\usepackage{comment} %非表示にするためのコメント
+\usepackage{enumerate}
+\usepackage{float} %画像をその場に表示．[h]の代わりに[H]
+\usepackage{graphicx} % eps 形式の図版取り込みのため
+\usepackage{mathrsfs}
+\usepackage{url}
+\usepackage[dvipdfmx]{hyperref}
+%----------------------------------------------------------
+
+%----------------------------------------------------------
+%命題関係の定義
+\theoremstyle{definition}
+\newtheorem{definition}{定義}[section]
+\newtheorem{theorem}{定理}[section]
+\newtheorem{proposition}[theorem]{命題}
+\newtheorem{lemma}[theorem]{補題}
+\newtheorem{col}[theorem]{系}
+\newtheorem{example}{例}[section]
+\newtheorem{remark}{注意}[section]
+%----------------------------------------------------------
+
+%タイトル・著者===================================================
+\title{第7回 データベースシステム 課題}
+\author{1108190116 \, 小森 一輝}
+%=================================================================
+
+%本文開始=========================================================
+\begin{document}
+
+\maketitle
+
+%カウンタ--------------------------------------------------
+\setcounter{section}{2}
+%\setcounter{subsection}{0}
+%\setcounter{subsubsection}{0}
+%\setcounter{theorem}{0}
+
+%----------------------------------------------------------定理2.8
+\noindent
+    \textbf{プロセス1} $\rho(受注1, 受注)$ \\
+    \begin{align*}
+        &受注1\\
+        &\begin{tabular}{|c|c|c|c|}
+            \hline
+            受注番号 & 受注数\\
+            \hline
+            \hline
+            S010 & 300\\
+            \hline
+            S025 & 240\\
+            \hline
+            S045 & 280\\
+            \hline
+        \end{tabular}\\
+    \end{align*}
+    \textbf{プロセス2} $\rho(受注2, ^{}_{\rho 受注.受注数 \leqq 受注1.受注数}受注 × 受注1)$ \\
+    \begin{align*}
+        &受注2\\
+        &\begin{tabular}{|c|c|c|c|}
+            \hline
+            受注.受注番号 & 受注.受注数 & 受注1.受注番号 & 受注1.受注数\\
+            \hline
+            \hline
+            S010 & 300 & S010 & 300\\
+            \hline
+            S025 & 240 & S010 & 300\\
+            \hline
+            S045 & 280 & S010 & 300\\
+            \hline
+            S025 & 240 & S025 & 240\\
+            \hline
+            S025 & 240 & S045 & 280\\
+            \hline
+            S045 & 280 & S045 & 280\\
+            \hline
+        \end{tabular}\\
+    \end{align*}
+    \newpage
+    \textbf{プロセス3} $^{}_{\pi 受注.受注番号}(受注2 \div 受注1)$ \\
+    \begin{align*}
+        \begin{tabular}{|c|c|c|c|}
+            \hline
+            受注.受注番号\\
+            \hline
+            \hline
+            S025\\
+            \hline
+        \end{tabular}\\
+    \end{align*}
+
+\end{document}
+%本文ここまで=========================================================

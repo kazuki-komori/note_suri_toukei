@@ -1,0 +1,129 @@
+\synctex=1
+\documentclass[dvipdfmx,10pt, a4j]{jarticle}
+%----------------------------------------------------------
+%パッケージ読み込み
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm} %定理環境の拡張
+\usepackage{ascmac}
+\usepackage{bm}
+\usepackage{cases}
+\usepackage{comment} %非表示にするためのコメント
+\usepackage{enumerate}
+\usepackage{float} %画像をその場に表示．[h]の代わりに[H]
+\usepackage{graphicx} % eps 形式の図版取り込みのため
+\usepackage{mathrsfs}
+\usepackage{url}
+\usepackage[dvipdfmx]{hyperref}
+%----------------------------------------------------------
+
+%----------------------------------------------------------
+%命題関係の定義
+\theoremstyle{definition}
+\newtheorem{definition}{定義}[section]
+\newtheorem{theorem}{定理}[section]
+\newtheorem{proposition}[theorem]{命題}
+\newtheorem{lemma}[theorem]{補題}
+\newtheorem{col}[theorem]{系}
+\newtheorem{example}{例}[section]
+\newtheorem{remark}{注意}[section]
+%----------------------------------------------------------
+
+%タイトル・著者===================================================
+\title{第8回 数理統計 レポート}
+\author{小森 一輝}
+%=================================================================
+
+%本文開始=========================================================
+\begin{document}
+
+\maketitle
+
+%カウンタ--------------------------------------------------
+\setcounter{section}{2}
+%\setcounter{subsection}{0}
+%\setcounter{subsubsection}{0}
+%\setcounter{theorem}{0}
+
+%----------------------------------------------------------定義3.9
+\noindent
+\textbf{定義 3.9.} 期待値\\
+\begin{enumerate}[i)]
+    \item $確率変数X が離散型の場合, Xの確率関数f_Xが \sum_{i=1}^{\infty}{|x_i| f_X(x_i)} < \infty$
+          $(D = \{x_i| i = 1,2,\dots \})を満たすとき, Xの \textbf{期待値(expected value) $\mu$ }を次式で定義する.$\\
+          \begin{align*}
+              \mu = E(X) = \sum_{i=1}^{\infty}{x_i f_X(x_i)} \\
+          \end{align*}
+    \item $確率変数Xが連続型の場合, Xの確率変数 f_X が \int_{-\infty}^{\infty}{|x|f_X(x)dx} < \infty を$
+          $満たすとき,Xの \textbf{期待値 $\mu$}を次式で定義する.$\\
+          \begin{align*}
+              \mu = E(X) = \int_{-\infty}^{\infty}{xf_X(x)dx} \\
+          \end{align*}
+          $確率変数Xの期待値は \textbf{平均値(mean)}と呼ばれることもある.$\\
+\end{enumerate}
+
+%----------------------------------------------------------定理3.18
+\noindent
+\textbf{定理 3.18.} $X, Yを確率変数とし, Y=h(X)とする. ただし, h: \mathbb{R} \to \mathbb{R} は微分可能な単調関数とする.$
+$このとき, E(Y) < \infty であれば, 以下が成り立つ.$\\
+\begin{align*}
+    E(Y) = E(h(X)) \\
+\end{align*}
+
+%----------------------------------------------------------命題3.19
+\noindent
+\textbf{命題 3.19.} $\phi, \psi: \mathbb{R} \to \mathbb{R} をボレル関数とし, a, b \in \mathbb{R} を定数とする.$
+$このとき, E(\phi(X)) < \infty, E(\psi(X)) < \infty であれば, 以下が成り立つ.$\\
+\begin{align*}
+     & E(a\phi(X) + b\psi(X)) = aE(\phi(X)) + bE(\psi(X)) \\
+     & |E(\phi(X)| \leq E(|\phi(X)|)                      \\
+\end{align*}
+
+%----------------------------------------------------------定義3.10
+\noindent
+\textbf{定義 3.10.} 分散, 標準偏差\\
+\begin{enumerate}[i)]
+    \item $確率変数X が離散型の場合, X の確率関数 f_X が \sum_{i=1}^{\infty}{x_i^{2}f_X(x_i)} < \infty (D= \{x_i \mid i=1,2,\dots \})$
+          $を満たすとき, Xの \textbf{分散(varaiance)}を次式で定義し, \sigma^{2}と記す.$\\
+          \begin{align*}
+              \sigma^{2} = V(X) = E((X-\mu)^2) = \sum_{i=1}^{\infty}{(x_i - \mu)^{2}f_X(x_i)} \\
+          \end{align*}
+    \item $確率変数Xが連続型の場合, X の確率密度関数f_X が \int_{-\infty}^{\infty}{x^2f_X(x)dx} < \infty を満たすとき,$
+          $Xの \textbf{分散}を次式で定義し, 同じく \sigma^{2}と記す.$\\
+          \begin{align*}
+              \sigma^{2} = V(X) = E((X-\mu)^2) = \int_{-\infty}^{\infty}{(x-\mu)^2f_X(x)dx} \\
+          \end{align*}
+    \item $確率変数X の \textbf{標準偏差(standard deviation)} を次式で定義し, \sigma と記す.$\\
+          \begin{align*}
+              \sigma = \sqrt{V(X)} \\
+          \end{align*}
+          $すなわち, 標準偏差は分散の正の平方根である.$\\
+\end{enumerate}
+
+%----------------------------------------------------------例3.4
+\noindent
+\textbf{例 3.4.} $確率変数X の期待値, 分散について, 次式が成り立つ.$\\
+\begin{align*}
+     & E(aX + b) = aE(X) + b, \qquad V(aX + b) = a^2V(X) \\
+     & V(X) = E(X^2) - (E(X))^2                          \\
+\end{align*}
+
+%----------------------------------------------------------例3.5
+\noindent
+\textbf{例 3.5.} $確率変数X の期待値, 分散について, 次式が成り立つ.$\\
+\begin{align*}
+     & E(X - \mu) = 0                                                    \\
+     & E((X - c)^2) \geq E((X - \mu)^2) = V(X) \qquad (c \in \mathbb{R}) \\
+\end{align*}
+
+%----------------------------------------------------------定義3.11
+\noindent
+\textbf{定義 3.11.} 積率\\
+$確率変数Xについて, ある n \in \mathbb{N} に対し, E(X^n) < \infty であれば,$\\
+$E(X^n) を\textbf{原点まわりのn次積率(nth moment about the origin)}, または, \textbf{原点積率(nth origin moment)}という.$\\
+$さらに, ある \mu = E(X) が与えられるとき, E((X-\mu)^n)を \textbf{平均周りのn次積率(nth moment about the mean)},$\\
+$または, \textbf{中心積率(nth central moment)}という. 以下, \mu_n = E(X^{n}),\; \mu_n^{\prime} = E((X-\mu)^n)と記す.$\\
+
+%32:43
+\end{document}
+%本文ここまで=========================================================

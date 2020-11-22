@@ -1,0 +1,124 @@
+\synctex=1
+\documentclass[dvipdfmx,10pt, a4j]{jarticle}
+%----------------------------------------------------------
+%パッケージ読み込み
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm} %定理環境の拡張
+\usepackage{ascmac}
+\usepackage{bm}
+\usepackage{cases}
+\usepackage{comment} %非表示にするためのコメント
+\usepackage{enumerate}
+\usepackage{float} %画像をその場に表示．[h]の代わりに[H]
+\usepackage{graphicx} % eps 形式の図版取り込みのため
+\usepackage{mathrsfs}
+\usepackage{url}
+\usepackage[dvipdfmx]{hyperref}
+\usepackage{color}
+%----------------------------------------------------------
+
+%----------------------------------------------------------
+%命題関係の定義
+\theoremstyle{definition}
+\newtheorem{definition}{定義}[section]
+\newtheorem{theorem}{定理}[section]
+\newtheorem{proposition}[theorem]{命題}
+\newtheorem{lemma}[theorem]{補題}
+\newtheorem{col}[theorem]{系}
+\newtheorem{example}{例}[section]
+\newtheorem{remark}{注意}[section]
+%----------------------------------------------------------
+
+%タイトル・著者===================================================
+\title{第8回 データベースシステム 課題}
+\author{1108190116\; 小森 一輝}
+%=================================================================
+
+%本文開始=========================================================
+\begin{document}
+
+\maketitle
+
+%カウンタ--------------------------------------------------
+\setcounter{section}{0}
+\setcounter{subsection}{0}
+%\setcounter{subsubsection}{0}
+%\setcounter{theorem}{0}
+
+%----------------------------------------------------------1
+\noindent
+\section{社員表から，部門番号が0120である社員の社員番号と社員名，部門番号
+  を出力せよ}
+
+\begin{flushleft}
+    SELECT\; 社員番号, 社員名, 部門番号\\
+    FROM 社員\\
+    WHERE 社員番号=0120\\
+\end{flushleft}
+%----------------------------------------------------------2
+\noindent
+\section{社員表から，部門番号が0110または0130である社員の社員番号と社員
+  名，部門番号を二通りの方法で出力せよ}
+
+\begin{flushleft}1通り目\\
+    SELECT 社員番号, 社員名, 部門番号\\
+    FROM 社員\\
+    WHERE 部門番号=0110 OR 部門番号=0130\\
+\end{flushleft}
+
+\begin{flushleft}2通り目\\
+    SELECT 社員番号, 社員名, 部門番号\\
+    FROM 社員\\
+    WHERE 部門番号 IN \\
+    (SELECT 部門番号FROM 部門 WHERE 部門番号=0110 OR 部門番号=0130)\\
+\end{flushleft}
+
+%----------------------------------------------------------3
+\noindent
+\section{社員表から，社員番号と社員名，給料を，給料の高い社員から順に出力せ
+  よ}
+
+\begin{flushleft}
+    SELECT 社員番号, 社員名, 給料\\
+    FROM 社員\\
+    ORDER BY 給料 DESC\\
+\end{flushleft}
+
+\newpage
+%----------------------------------------------------------4
+\noindent
+\section{社員表から，平均給料が25万円以下の部門番号と平均給料を出力せよ}
+
+\begin{flushleft}
+    SELECT 部門番号, AVG(給料) AS 平均給料\\
+    FROM 社員\\
+    GROUP BY 部門番号\\
+    HAVING AVG(給料) $\leq$ 250000\\
+\end{flushleft}
+
+%----------------------------------------------------------5
+\noindent
+\section{社員表と部門から，社員番号，社員名，社員が所属する部門名を出力せよ}
+
+\begin{flushleft}
+    SELECT 社員番号, 社員名, 部門名\\
+    FROM 社員, 部門\\
+    WHERE 社員.部門番号 = 部門.部門番号\\
+\end{flushleft}
+
+%----------------------------------------------------------6
+\noindent
+\section{社員表から，部門番号が0100の社員の誰かと同額の給料の社員の社員
+  番号と社員名を出力せよ}
+
+\begin{flushleft}
+    SELECT 社員番号, 社員名\\
+    FROM 社員\\
+    WHERE 給料 IN \\
+    (SELECT 給料 FROM 社員 WHERE 部門番号=0100)\\
+    AND 部門番号 != 0100 OR 部門番号 IS NULL\\
+\end{flushleft}
+
+\end{document}
+%本文ここまで=========================================================

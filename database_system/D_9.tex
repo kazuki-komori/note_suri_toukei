@@ -1,0 +1,289 @@
+\synctex=1
+\documentclass[dvipdfmx,10pt, a4j]{jarticle}
+%----------------------------------------------------------
+%パッケージ読み込み
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm} %定理環境の拡張
+\usepackage{ascmac}
+\usepackage{bm}
+\usepackage{cases}
+\usepackage{comment} %非表示にするためのコメント
+\usepackage{enumerate}
+\usepackage{float} %画像をその場に表示．[h]の代わりに[H]
+\usepackage{graphicx} % eps 形式の図版取り込みのため
+\usepackage{mathrsfs}
+\usepackage{url}
+\usepackage[dvipdfmx]{hyperref}
+\usepackage{color}
+\usepackage{mathrsfs}
+\usepackage[top=2cm, bottom=2cm, left=1cm, right=1cm]{geometry}
+%----------------------------------------------------------
+
+%----------------------------------------------------------
+%命題関係の定義
+\theoremstyle{definition}
+\newtheorem{definition}{定義}[section]
+\newtheorem{theorem}{定理}[section]
+\newtheorem{proposition}[theorem]{命題}
+\newtheorem{lemma}[theorem]{補題}
+\newtheorem{col}[theorem]{系}
+\newtheorem{example}{例}[section]
+\newtheorem{remark}{注意}[section]
+%----------------------------------------------------------
+
+%タイトル・著者===================================================
+\title{第9回 データベースシステム 課題}
+\author{1108190116 \; 小森 一輝}
+%=================================================================
+
+%本文開始=========================================================
+\begin{document}
+
+\maketitle
+
+%カウンタ--------------------------------------------------
+\setcounter{section}{2}
+%\setcounter{subsection}{0}
+%\setcounter{subsubsection}{0}
+%\setcounter{theorem}{0}
+
+%----------------------------------------------------------定理2.8
+\noindent
+\textbf{1NF}
+\begin{align*}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        SID&ID&店舗&店住所&日付&PID&商品名&単価&数量&小計&合計&税&請求額&PICID&PIC\\
+        \hline
+        \hline
+        1&001&京都&京都市&20/11/01&ERS&消しゴム&100&2&200&1000&100&1100&KYO01&杉下\\
+        \hline
+        1&001&京都&京都市&20/11/01&SPN&シャーペン&300&1&300&1000&100&1100&KYO01&杉下\\
+        \hline
+        1&001&京都&京都市&20/11/01&STP&ホッチキス&500&1&500&1000&100&1100&KYO01&杉下\\
+        \hline
+        2&001&京都&京都市&20/11/02&SPN&シャーペン&300&2&600&1400&140&1540&KYO02&冠城\\
+        \hline
+        2&001&京都&京都市&20/11/02&BPN&ボールペン&200&4&800&1400&140&1540&KYO02&冠城\\
+        \hline
+        3&002&大阪&枚方市&20/11/03&STP&ホッチキス&500&1&500&2500&250&2750&OSK01&小出\\
+        \hline
+        3&002&大阪&枚方市&20/11/03&CAL&電卓&1000&2&2000&2500&250&2750&OSK01&小出\\
+        \hline
+    \end{tabular}
+\end{align*}
+
+主キーを \textbf{SID, 日付, ID, PID}に設定する. \\
+
+\textbf{2NF}
+\begin{align*}
+    &\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+        \hline
+        \underline{SID}&\underline{ID}&\underline{日付}&\underline{PID}&数量&小計&合計&税&請求額\\
+        \hline
+        \hline
+        1&001&20/11/01&ERS&2&200&1000&100&1100\\
+        \hline
+        1&001&20/11/01&SPN&1&300&1000&100&1100\\
+        \hline
+        1&001&20/11/01&STP&1&500&1000&100&1100\\
+        \hline
+        2&001&20/11/02&SPN&2&600&1400&140&1540\\
+        \hline
+        2&001&20/11/02&BPN&4&800&1400&140&1540\\
+        \hline
+        3&002&20/11/03&STP&1&500&2500&250&2750\\
+        \hline
+        3&002&20/11/03&CAL&2&2000&2500&250&2750\\
+        \hline
+    \end{tabular}
+    &\begin{tabular}{|c|c|c|}
+        \hline
+        \underline{SID}&PICID&PIC\\
+        \hline
+        \hline
+        1&KYO01&杉下\\
+        \hline
+        1&KYO01&杉下\\
+        \hline
+        1&KYO01&杉下\\
+        \hline
+        2&KYO02&冠城\\
+        \hline
+        2&KYO02&冠城\\
+        \hline
+        3&OSK01&小出\\
+        \hline
+        3&OSK01&小出\\
+        \hline
+    \end{tabular}\\
+    &\begin{tabular}{|c|c|c|}
+        \hline
+        \underline{ID}&店舗&店住所\\
+        \hline
+        \hline
+        001&京都&京都市\\
+        \hline
+        001&京都&京都市\\
+        \hline
+        001&京都&京都市\\
+        \hline
+        001&京都&京都市\\
+        \hline
+        001&京都&京都市\\
+        \hline
+        002&大阪&枚方市\\
+        \hline
+        002&大阪&枚方市\\
+        \hline
+    \end{tabular}
+    &\begin{tabular}{|c|c|c|}
+        \hline
+        \underline{PID}&商品名&単価\\
+        \hline
+        \hline
+        ERS&消しゴム&100\\
+        \hline
+        SPN&シャーペン&300\\
+        \hline
+        STP&ホッチキス&500\\
+        \hline
+        SPN&シャーペン&300\\
+        \hline
+        BPN&ボールペン&200\\
+        \hline
+        STP&ホッチキス&500\\
+        \hline
+        CAL&電卓&1000\\
+        \hline
+    \end{tabular}
+\end{align*}
+
+導出項目は削除した上で3NFは以下の通りになる.\\
+\noindent
+\textbf{3NF}
+\begin{align*}
+    &\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+        \hline
+        \underline{SID}&\underline{ID}&\underline{日付}&\underline{PID}&数量\\
+        \hline
+        \hline
+        1&001&20/11/01&ERS&2\\
+        \hline
+        1&001&20/11/01&SPN&1\\
+        \hline
+        1&001&20/11/01&STP&1\\
+        \hline
+        2&001&20/11/02&SPN&2\\
+        \hline
+        2&001&20/11/02&BPN&4\\
+        \hline
+        3&002&20/11/03&STP&1\\
+        \hline
+        3&002&20/11/03&CAL&2\\
+        \hline
+    \end{tabular}\\
+    &\begin{tabular}{|c|c|}
+        \hline
+        \underline{SID}&PICID\\
+        \hline
+        \hline
+        1&KYO01\\
+        \hline
+        1&KYO01\\
+        \hline
+        1&KYO01\\
+        \hline
+        2&KYO02\\
+        \hline
+        2&KYO02\\
+        \hline
+        3&OSK01\\
+        \hline
+        3&OSK01\\
+        \hline
+    \end{tabular}
+    &\begin{tabular}{|c|c|}
+        \hline
+        \underline{PICID}&PIC\\
+        \hline
+        \hline
+        KYO01&杉下\\
+        \hline
+        KYO01&杉下\\
+        \hline
+        KYO01&杉下\\
+        \hline
+        KYO02&冠城\\
+        \hline
+        KYO02&冠城\\
+        \hline
+        OSK01&小出\\
+        \hline
+        OSK01&小出\\
+        \hline
+    \end{tabular}\\
+    &\begin{tabular}{|c|c|}
+        \hline
+        \underline{ID}&店舗\\
+        \hline
+        \hline
+        001&京都\\
+        \hline
+        001&京都\\
+        \hline
+        001&京都\\
+        \hline
+        001&京都\\
+        \hline
+        001&京都\\
+        \hline
+        002&大阪\\
+        \hline
+        002&大阪\\
+        \hline
+    \end{tabular}
+    &\begin{tabular}{|c|c|}
+        \hline
+        \underline{店舗}&店住所\\
+        \hline
+        \hline
+        京都&京都市\\
+        \hline
+        京都&京都市\\
+        \hline
+        京都&京都市\\
+        \hline
+        京都&京都市\\
+        \hline
+        京都&京都市\\
+        \hline
+        大阪&枚方市\\
+        \hline
+        大阪&枚方市\\
+        \hline
+    \end{tabular}\\    
+    &\begin{tabular}{|c|c|c|}
+        \hline
+        \underline{PID}&商品名&単価\\
+        \hline
+        \hline
+        ERS&消しゴム&100\\
+        \hline
+        SPN&シャーペン&300\\
+        \hline
+        STP&ホッチキス&500\\
+        \hline
+        SPN&シャーペン&300\\
+        \hline
+        BPN&ボールペン&200\\
+        \hline
+        STP&ホッチキス&500\\
+        \hline
+        CAL&電卓&1000\\
+        \hline
+    \end{tabular}
+\end{align*}
+%本文ここまで=========================================================
+\end{document}

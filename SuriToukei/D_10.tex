@@ -196,11 +196,12 @@ $が成り立つ.ここで, Cov(X_i, X_j)については, 定義4.16参照.$\\
     \begin{figure}[htbp]
     \begin{center}
     \includegraphics[width=7.0cm]{D_10/img_4.png}
-    \caption{}
+    \caption{証明}
     \end{center}
     \end{figure}
 \end{proof}
 
+\newpage
 %----------------------------------------------------------定理4.9
 \noindent
 \textbf{定理 4.9.} 確率変数の和の分布\\
@@ -214,6 +215,19 @@ $このとき, 確率変数X, Yの和Z = X+Yの確率関数または確率密度
     \end{cases}\\
 \end{align*}
 で与えられる.\\
+\begin{proof}
+    離散型\\
+    \begin{align*}
+        f_Z(z) = \sum_{x_i + y_j} f_{X, Y} (x_i, y_j) = \sum_{i=1}^{\infty}f_{X, Y}(x_i, z-x_i)\\
+    \end{align*}
+    連続型 U=X+Y, V=Xとおく.\\
+    \begin{align*}
+        f_{u, v}(u, v) &= f_{X, Y}(v, u-v)|-1|\\
+        f_v(u) &= \int_{-\infty}^{\infty}f_{u, v}(u, v)dv\\
+        &= \int_{-\infty}^{\infty}f_{X, Y}(v, u-v)dv\\
+    \end{align*}
+\end{proof}
+これをたたみこみという.\\
 
 %----------------------------------------------------------定理4.10
 \noindent
@@ -227,6 +241,14 @@ $このとき, 確率変数X. Y の積 Z_1 = XY, 商Z_2 = X/Y の確率密度関
 \end{align*}
 で与えられる.\\
 
+%---------------以下補足
+\begin{itembox}[l]{補足}
+    \begin{align*}
+        &1行目 &\to U=XY,\; V=X (V=YでもOK)\\
+        &2行目 &\to U=XY,\; V=X (V=YでもOK)\\
+    \end{align*}
+\end{itembox}\\
+
 \noindent
 {\LARGE 4.3 2次元確率変数の特性値}\\
 
@@ -238,6 +260,9 @@ $2次元確率変数(X, Y)の原点まわりの i \neq j 次積率 \mu_{ij}^{\pr
     \mu_{ij}^{\prime} = E(X^{i}Y^{j}), \qquad \mu_{ij} = E((X - E(X))^{i}(Y - E(Y))^{j})\\
 \end{align*}
 $特に, \mu_{11} を X と Y の \textbf{共分散(covariance)}とよび, Cov(X, Y)と記す.$\\
+\begin{align*}
+    \mu_11 = Cov(X, Y) = E((X-E(X))(Y-E(Y)))\\
+\end{align*}
 
 %----------------------------------------------------------命題4.11
 \noindent

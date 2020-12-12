@@ -1,0 +1,81 @@
+\synctex=1
+\documentclass[dvipdfmx,10pt, a4j]{jarticle}
+%----------------------------------------------------------
+%パッケージ読み込み
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm} %定理環境の拡張
+\usepackage{ascmac}
+\usepackage{bm}
+\usepackage{cases}
+\usepackage{comment} %非表示にするためのコメント
+\usepackage{enumerate}
+\usepackage{float} %画像をその場に表示．[h]の代わりに[H]
+\usepackage{graphicx} % eps 形式の図版取り込みのため
+\usepackage{mathrsfs}
+\usepackage{url}
+\usepackage[dvipdfmx]{hyperref}
+\usepackage{color}
+\usepackage{mathrsfs}
+\usepackage[top=2cm, bottom=2cm, left=1cm, right=1cm]{geometry}
+%----------------------------------------------------------
+
+%----------------------------------------------------------
+%命題関係の定義
+\theoremstyle{definition}
+\newtheorem{definition}{定義}[section]
+\newtheorem{theorem}{定理}[section]
+\newtheorem{proposition}[theorem]{命題}
+\newtheorem{lemma}[theorem]{補題}
+\newtheorem{col}[theorem]{系}
+\newtheorem{example}{例}[section]
+\newtheorem{remark}{注意}[section]
+%----------------------------------------------------------
+
+%タイトル・著者===================================================
+\title{データベースシステム 中間確認2-1}
+\author{1108190116 \, 小森 一輝}
+%=================================================================
+
+%本文開始=========================================================
+\begin{document}
+
+\maketitle
+
+%カウンタ--------------------------------------------------
+\setcounter{section}{2}
+%\setcounter{subsection}{0}
+%\setcounter{subsubsection}{0}
+%\setcounter{theorem}{0}
+
+%----------------------------------------------------------定理2.8
+\noindent
+\textbf{中間確認2-1}\\
+\textbf{R1}
+\begin{align*}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        \underline{CID}&顧客名&\underline{購入日}&\underline{ISBN}&商品名&数量&単価&合計金額&JID&ジャンル\\
+        \hline
+        \hline
+        2001&山田哲人&2020/12/1&4873119049&プログラミングTypeScript&2&3740&7480&100&ソフト開発\\
+        \hline
+        2001&山田哲人&2020/12/2&4297100916&Vue.js入門&1&3718&3718&101&IT\\
+        \hline
+        2002&鈴木一郎&2020/12/2&4297100916&Vue.js入門&2&3718&7436&101&IT\\
+        \hline
+        2002&鈴木一郎&2020/12/2&479739739X&AWS認定資格試験テキスト&3&3780&11340&101&IT\\
+        \hline
+        2003&田中将大&2020/12/4&4048930656&Clean Architecture&1&10128&10128&101&IT\\
+        \hline
+        2003&田中将大&2020/12/4&4873119049&プログラミングTypeScript&1&3740&3740&100&ソフト開発\\
+        \hline
+        2004&大谷翔平&2020/12/3&4865941959&GCPの教科書&4&3960&15840&101&IT\\
+        \hline
+    \end{tabular}
+\end{align*}
+
+主キーを \textbf{CID, 購入日, ISBN}に設定する. 尚, 書籍情報はAmazonに出品されているデータを参考にしている.\\
+
+\end{document}
+%本文ここまで=========================================================
